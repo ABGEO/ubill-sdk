@@ -1,0 +1,8 @@
+gitUserId: abgeo
+gitRepoId: ubill-sdk/sdk/go
+enablePostProcessFile: true
+
+packageName: ubill
+packageVersion: 2.1.7
+
+generateInterfaces: true
