@@ -1,0 +1,14 @@
+gitUserId: abgeo
+gitRepoId: ubill-sdk
+enablePostProcessFile: true
+
+artifactUrl: https://github.com/ABGEO/ubill-sdk
+artifactVersion: 2.1.7
+composerPackageName: abgeo/ubill-sdk
+developerOrganization: ABGEO
+developerOrganizationUrl: https://www.abgeo.dev
+invokerPackage: ABGEO\UBill\Sdk
+licenseName: MIT
+packageName: ubill-sdk
+srcBasePath: src
+variableNamingConvention: camelCase

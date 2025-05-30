@@ -1,0 +1,40 @@
+{
+    "name": "abgeo/ubill-sdk",
+    "version": "2.1.7",
+    "description": "UBill API - provides programmatic access to our resources. You will be able to integrate our service into your system and communicate with clients easily.",
+    "keywords": [
+        "openapitools",
+        "openapi-generator",
+        "openapi",
+        "php",
+        "sdk",
+        "rest",
+        "api"
+    ],
+    "homepage": "https://github.com/ABGEO/ubill-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ABGEO",
+            "homepage": "https://www.abgeo.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": { "ABGEO\\UBill\\Sdk\\" : "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "ABGEO\\UBill\\Sdk\\Test\\" : "test/" }
+    }
+}
