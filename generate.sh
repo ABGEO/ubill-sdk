@@ -15,3 +15,10 @@ openapi-generator generate \
   -o sdk/php \
   -c config/php.yaml \
   -t templates/php
+
+openapi-generator generate \
+  -i spec/openapi.yaml \
+  -g csharp \
+  -o sdk/csharp \
+  -c config/csharp.yaml \
+  -t templates/csharp

@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: info@ubill.ge
+  description: |-
+    UBill API - provides programmatic access to our resources.
+    You will be able to integrate our service into your system and communicate with clients easily.
+  termsOfService: https://ubill.ge/terms
+  title: UBill API
+  version: 2.1.7
+servers:
+- description: The Production API Server
+  url: https://api.ubill.dev/v1
+tags:
+- description: SMS Endpoints
+  name: sms
+paths:
+  /sms/brandNames:
+    get:
+      operationId: getBrandNames
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandNamesResponse'
+          description: successful operation
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+      - api_key: []
+      summary: Get All BrandNames
+      tags:
+      - sms
+  /sms/send:
+    post:
+      operationId: sendSMS
+      requestBody:
+        $ref: '#/components/requestBodies/SMSPayload'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendSMSResponse'
+          description: successful operation
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+      - api_key: []
+      summary: Send SMS
+      tags:
+      - sms
+  /sms/report/{smsID}:
+    get:
+      operationId: getDeliveryReport
+      parameters:
+      - description: ID of SMS to get report for
+        explode: false
+        in: path
+        name: smsID
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryReportResponse'
+          description: successful operation
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+      - api_key: []
+      summary: Get Delivery Report
+      tags:
+      - sms
+  /sms/balance:
+    get:
+      operationId: getBalance
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMSBalanceResponse'
+          description: successful operation
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+      - api_key: []
+      summary: Get SMS Balance
+      tags:
+      - sms
+components:
+  requestBodies:
+    SMSPayload:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SMSPayload'
+      description: Pet object that needs to be added to the store
+  responses:
+    Unauthorized:
+      content:
+        text/plain:
+          example: Please authorize with valid API key!
+      description: Unauthorized
+  schemas:
+    BrandName:
+      example:
+        createdAt: createdAt
+        authorized: authorized
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        authorized:
+          type: string
+        createdAt:
+          type: string
+    BrandNamesResponse:
+      example:
+        brands:
+        - createdAt: createdAt
+          authorized: authorized
+          name: name
+          id: id
+        - createdAt: createdAt
+          authorized: authorized
+          name: name
+          id: id
+        statusID: 0
+      properties:
+        statusID:
+          format: int64
+          type: integer
+        brands:
+          items:
+            $ref: '#/components/schemas/BrandName'
+          type: array
+      required:
+      - statusID
+    SMSBalanceResponse:
+      example:
+        statusID: 0
+        sms: sms
+      properties:
+        statusID:
+          format: int64
+          type: integer
+        sms:
+          type: string
+      required:
+      - sms
+      - statusID
+    DeliveryReportItem:
+      example:
+        number: number
+        statusID: statusID
+      properties:
+        number:
+          type: string
+        statusID:
+          type: string
+    DeliveryReportResponse:
+      example:
+        result:
+        - number: number
+          statusID: statusID
+        - number: number
+          statusID: statusID
+        statusID: 0
+      properties:
+        statusID:
+          format: int64
+          type: integer
+        result:
+          items:
+            $ref: '#/components/schemas/DeliveryReportItem'
+          type: array
+      required:
+      - result
+      - statusID
+    SMSPayload:
+      example:
+        stopList: true
+        brandID: 0
+        numbers:
+        - 995511194241
+        - 995511194241
+        text: text
+      properties:
+        brandID:
+          format: int64
+          type: integer
+        numbers:
+          items:
+            example: 995511194241
+            format: int64
+            type: integer
+          type: array
+        text:
+          type: string
+        stopList:
+          description: Enable/disable checking numbers in the stop list
+          type: boolean
+      required:
+      - brandID
+      - numbers
+      - stopList
+      - text
+    SendSMSResponse:
+      example:
+        smsID: smsID
+        statusID: 0
+        message: message
+      properties:
+        statusID:
+          format: int64
+          type: integer
+        smsID:
+          type: string
+        message:
+          type: string
+      required:
+      - message
+      - statusID
+  securitySchemes:
+    api_key:
+      in: header
+      name: key
+      type: apiKey
+
