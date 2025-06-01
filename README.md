@@ -10,10 +10,12 @@ OpenAPI specification to ensure consistency and reliability across different pla
 
 ## Available SDKs
 
-| Language | Package Manager | Location             | Installation                               |
-|----------|-----------------|----------------------|--------------------------------------------|
-| Go       | Go modules      | [sdk/go](./sdk/go)   | `go get github.com/abgeo/ubill-sdk/sdk/go` |
-| PHP      | Composer        | [sdk/php](./sdk/php) | `-`                                        |
+| Language   | Package Manager | Location                   | Installation                               |
+|------------|-----------------|----------------------------|--------------------------------------------|
+| C#         | NuGet           | [sdk/csharp](./sdk/csharp) | `-`                                        |
+| Go         | Go modules      | [sdk/go](./sdk/go)         | `go get github.com/abgeo/ubill-sdk/sdk/go` |
+| PHP        | Composer        | [sdk/php](./sdk/php)       | `-`                                        |
+| TypeScript | NPM             | [sdk/ts](./sdk/ts)         | `-`                                        |
 
 ## Features
 
