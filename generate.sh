@@ -22,3 +22,10 @@ openapi-generator generate \
   -o sdk/csharp \
   -c config/csharp.yaml \
   -t templates/csharp
+
+openapi-generator generate \
+  -i spec/openapi.yaml \
+  -g typescript-axios \
+  -o sdk/ts \
+  -c config/typescript-axios.yaml \
+  -t templates/typescript-axios

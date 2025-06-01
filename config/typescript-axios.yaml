@@ -1,0 +1,14 @@
+gitUserId: abgeo
+gitRepoId: ubill-sdk
+enablePostProcessFile: true
+
+apiPackage: api
+axiosVersion: ^1.9.0
+licenseName: MIT
+modelPackage: model
+npmName: 'abgeo/ubill-sdk'
+npmVersion: 2.1.7
+supportsES6: true
+useSingleRequestParameter: true
+withInterfaces: true
+withSeparateModelsAndApi: true
