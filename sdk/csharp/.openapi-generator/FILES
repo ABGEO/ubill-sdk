@@ -3,8 +3,11 @@ Dev.ABGEO.UBill.SDK.sln
 README.md
 api/openapi.yaml
 docs/apis/SmsApi.md
+docs/models/BaseResponse.md
 docs/models/BrandName.md
 docs/models/BrandNamesResponse.md
+docs/models/CreateBrandNamePayload.md
+docs/models/CreateBrandNameResponse.md
 docs/models/DeliveryReportItem.md
 docs/models/DeliveryReportResponse.md
 docs/models/SMSBalanceResponse.md
@@ -12,6 +15,9 @@ docs/models/SMSPayload.md
 docs/models/SendSMSResponse.md
 src/Dev.ABGEO.UBill.SDK.Test/Api/DependencyInjectionTests.cs
 src/Dev.ABGEO.UBill.SDK.Test/Dev.ABGEO.UBill.SDK.Test.csproj
+src/Dev.ABGEO.UBill.SDK.Test/Model/BaseResponseTests.cs
+src/Dev.ABGEO.UBill.SDK.Test/Model/CreateBrandNamePayloadTests.cs
+src/Dev.ABGEO.UBill.SDK.Test/Model/CreateBrandNameResponseTests.cs
 src/Dev.ABGEO.UBill.SDK.Test/README.md
 src/Dev.ABGEO.UBill.SDK/Api/IApi.cs
 src/Dev.ABGEO.UBill.SDK/Api/SmsApi.cs
@@ -38,8 +44,11 @@ src/Dev.ABGEO.UBill.SDK/Dev.ABGEO.UBill.SDK.csproj
 src/Dev.ABGEO.UBill.SDK/Extensions/IHostBuilderExtensions.cs
 src/Dev.ABGEO.UBill.SDK/Extensions/IHttpClientBuilderExtensions.cs
 src/Dev.ABGEO.UBill.SDK/Extensions/IServiceCollectionExtensions.cs
+src/Dev.ABGEO.UBill.SDK/Model/BaseResponse.cs
 src/Dev.ABGEO.UBill.SDK/Model/BrandName.cs
 src/Dev.ABGEO.UBill.SDK/Model/BrandNamesResponse.cs
+src/Dev.ABGEO.UBill.SDK/Model/CreateBrandNamePayload.cs
+src/Dev.ABGEO.UBill.SDK/Model/CreateBrandNameResponse.cs
 src/Dev.ABGEO.UBill.SDK/Model/DeliveryReportItem.cs
 src/Dev.ABGEO.UBill.SDK/Model/DeliveryReportResponse.cs
 src/Dev.ABGEO.UBill.SDK/Model/SMSBalanceResponse.cs

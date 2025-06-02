@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StatusID** | **long** |  | 
-**Result** | [**List&lt;DeliveryReportItem&gt;**](DeliveryReportItem.md) |  | 
+**StatusID** | **long** | Response status code | 
+**Message** | **string** | Human-readable response message | [optional] 
+**Result** | [**List&lt;DeliveryReportItem&gt;**](DeliveryReportItem.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

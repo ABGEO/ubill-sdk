@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StatusID** | **int64** |  | 
+**StatusID** | **int64** | Response status code | 
+**Message** | Pointer to **string** | Human-readable response message | [optional] 
 **SmsID** | Pointer to **string** |  | [optional] 
-**Message** | **string** |  | 
 
 ## Methods
 
 ### NewSendSMSResponse
 
-`func NewSendSMSResponse(statusID int64, message string, ) *SendSMSResponse`
+`func NewSendSMSResponse(statusID int64, ) *SendSMSResponse`
 
 NewSendSMSResponse instantiates a new SendSMSResponse object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,31 @@ and a boolean to check if the value has been set.
 SetStatusID sets StatusID field to given value.
 
 
+### GetMessage
+
+`func (o *SendSMSResponse) GetMessage() string`
+
+GetMessage returns the Message field if non-nil, zero value otherwise.
+
+### GetMessageOk
+
+`func (o *SendSMSResponse) GetMessageOk() (*string, bool)`
+
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMessage
+
+`func (o *SendSMSResponse) SetMessage(v string)`
+
+SetMessage sets Message field to given value.
+
+### HasMessage
+
+`func (o *SendSMSResponse) HasMessage() bool`
+
+HasMessage returns a boolean if a field has been set.
+
 ### GetSmsID
 
 `func (o *SendSMSResponse) GetSmsID() string`
@@ -71,26 +96,6 @@ SetSmsID sets SmsID field to given value.
 `func (o *SendSMSResponse) HasSmsID() bool`
 
 HasSmsID returns a boolean if a field has been set.
-
-### GetMessage
-
-`func (o *SendSMSResponse) GetMessage() string`
-
-GetMessage returns the Message field if non-nil, zero value otherwise.
-
-### GetMessageOk
-
-`func (o *SendSMSResponse) GetMessageOk() (*string, bool)`
-
-GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMessage
-
-`func (o *SendSMSResponse) SetMessage(v string)`
-
-SetMessage sets Message field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

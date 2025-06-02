@@ -34,14 +34,14 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SendSMSResponse" /> class.
         /// </summary>
-        /// <param name="statusID">statusID</param>
-        /// <param name="message">message</param>
+        /// <param name="statusID">Response status code</param>
+        /// <param name="message">Human-readable response message</param>
         /// <param name="smsID">smsID</param>
         [JsonConstructor]
-        public SendSMSResponse(long statusID, string message, Option<string?> smsID = default)
+        public SendSMSResponse(long statusID, Option<string?> message = default, Option<string?> smsID = default)
         {
             StatusID = statusID;
-            Message = message;
+            MessageOption = message;
             SmsIDOption = smsID;
             OnCreated();
         }
@@ -49,16 +49,27 @@ namespace Dev.ABGEO.UBill.SDK.Model
         partial void OnCreated();
 
         /// <summary>
-        /// Gets or Sets StatusID
+        /// Response status code
         /// </summary>
+        /// <value>Response status code</value>
+        /* <example>0</example> */
         [JsonPropertyName("statusID")]
         public long StatusID { get; set; }
 
         /// <summary>
-        /// Gets or Sets Message
+        /// Used to track the state of Message
         /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<string?> MessageOption { get; private set; }
+
+        /// <summary>
+        /// Human-readable response message
+        /// </summary>
+        /// <value>Human-readable response message</value>
+        /* <example>Success</example> */
         [JsonPropertyName("message")]
-        public string Message { get; set; }
+        public string? Message { get { return this.MessageOption; } set { this.MessageOption = new(value); } }
 
         /// <summary>
         /// Used to track the state of SmsID
@@ -70,6 +81,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Gets or Sets SmsID
         /// </summary>
+        /* <example>100</example> */
         [JsonPropertyName("smsID")]
         public string? SmsID { get { return this.SmsIDOption; } set { this.SmsIDOption = new(value); } }
 
@@ -158,9 +170,6 @@ namespace Dev.ABGEO.UBill.SDK.Model
             if (!statusID.IsSet)
                 throw new ArgumentException("Property is required for class SendSMSResponse.", nameof(statusID));
 
-            if (!message.IsSet)
-                throw new ArgumentException("Property is required for class SendSMSResponse.", nameof(message));
-
             if (statusID.IsSet && statusID.Value == null)
                 throw new ArgumentNullException(nameof(statusID), "Property is not nullable for class SendSMSResponse.");
 
@@ -170,7 +179,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             if (smsID.IsSet && smsID.Value == null)
                 throw new ArgumentNullException(nameof(smsID), "Property is not nullable for class SendSMSResponse.");
 
-            return new SendSMSResponse(statusID.Value!.Value!, message.Value!, smsID);
+            return new SendSMSResponse(statusID.Value!.Value!, message, smsID);
         }
 
         /// <summary>
@@ -197,7 +206,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, SendSMSResponse sendSMSResponse, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (sendSMSResponse.Message == null)
+            if (sendSMSResponse.MessageOption.IsSet && sendSMSResponse.Message == null)
                 throw new ArgumentNullException(nameof(sendSMSResponse.Message), "Property is required for class SendSMSResponse.");
 
             if (sendSMSResponse.SmsIDOption.IsSet && sendSMSResponse.SmsID == null)
@@ -205,7 +214,8 @@ namespace Dev.ABGEO.UBill.SDK.Model
 
             writer.WriteNumber("statusID", sendSMSResponse.StatusID);
 
-            writer.WriteString("message", sendSMSResponse.Message);
+            if (sendSMSResponse.MessageOption.IsSet)
+                writer.WriteString("message", sendSMSResponse.Message);
 
             if (sendSMSResponse.SmsIDOption.IsSet)
                 writer.WriteString("smsID", sendSMSResponse.SmsID);

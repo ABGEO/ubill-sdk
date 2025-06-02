@@ -39,68 +39,44 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <param name="authorized">authorized</param>
         /// <param name="createdAt">createdAt</param>
         [JsonConstructor]
-        public BrandName(Option<string?> id = default, Option<string?> name = default, Option<string?> authorized = default, Option<string?> createdAt = default)
+        public BrandName(string id, string name, string authorized, string createdAt)
         {
-            IdOption = id;
-            NameOption = name;
-            AuthorizedOption = authorized;
-            CreatedAtOption = createdAt;
+            Id = id;
+            Name = name;
+            Authorized = authorized;
+            CreatedAt = createdAt;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Used to track the state of Id
-        /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<string?> IdOption { get; private set; }
-
-        /// <summary>
         /// Gets or Sets Id
         /// </summary>
+        /* <example>1</example> */
         [JsonPropertyName("id")]
-        public string? Id { get { return this.IdOption; } set { this.IdOption = new(value); } }
-
-        /// <summary>
-        /// Used to track the state of Name
-        /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<string?> NameOption { get; private set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
+        /* <example>ubill-info</example> */
         [JsonPropertyName("name")]
-        public string? Name { get { return this.NameOption; } set { this.NameOption = new(value); } }
-
-        /// <summary>
-        /// Used to track the state of Authorized
-        /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<string?> AuthorizedOption { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets Authorized
         /// </summary>
+        /* <example>1</example> */
         [JsonPropertyName("authorized")]
-        public string? Authorized { get { return this.AuthorizedOption; } set { this.AuthorizedOption = new(value); } }
-
-        /// <summary>
-        /// Used to track the state of CreatedAt
-        /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<string?> CreatedAtOption { get; private set; }
+        public string Authorized { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
+        /* <example>2025-05-28 10:07:18</example> */
         [JsonPropertyName("createdAt")]
-        public string? CreatedAt { get { return this.CreatedAtOption; } set { this.CreatedAtOption = new(value); } }
+        public string CreatedAt { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -189,6 +165,18 @@ namespace Dev.ABGEO.UBill.SDK.Model
                 }
             }
 
+            if (!id.IsSet)
+                throw new ArgumentException("Property is required for class BrandName.", nameof(id));
+
+            if (!name.IsSet)
+                throw new ArgumentException("Property is required for class BrandName.", nameof(name));
+
+            if (!authorized.IsSet)
+                throw new ArgumentException("Property is required for class BrandName.", nameof(authorized));
+
+            if (!createdAt.IsSet)
+                throw new ArgumentException("Property is required for class BrandName.", nameof(createdAt));
+
             if (id.IsSet && id.Value == null)
                 throw new ArgumentNullException(nameof(id), "Property is not nullable for class BrandName.");
 
@@ -201,7 +189,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             if (createdAt.IsSet && createdAt.Value == null)
                 throw new ArgumentNullException(nameof(createdAt), "Property is not nullable for class BrandName.");
 
-            return new BrandName(id, name, authorized, createdAt);
+            return new BrandName(id.Value!, name.Value!, authorized.Value!, createdAt.Value!);
         }
 
         /// <summary>
@@ -228,29 +216,25 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, BrandName brandName, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (brandName.IdOption.IsSet && brandName.Id == null)
+            if (brandName.Id == null)
                 throw new ArgumentNullException(nameof(brandName.Id), "Property is required for class BrandName.");
 
-            if (brandName.NameOption.IsSet && brandName.Name == null)
+            if (brandName.Name == null)
                 throw new ArgumentNullException(nameof(brandName.Name), "Property is required for class BrandName.");
 
-            if (brandName.AuthorizedOption.IsSet && brandName.Authorized == null)
+            if (brandName.Authorized == null)
                 throw new ArgumentNullException(nameof(brandName.Authorized), "Property is required for class BrandName.");
 
-            if (brandName.CreatedAtOption.IsSet && brandName.CreatedAt == null)
+            if (brandName.CreatedAt == null)
                 throw new ArgumentNullException(nameof(brandName.CreatedAt), "Property is required for class BrandName.");
 
-            if (brandName.IdOption.IsSet)
-                writer.WriteString("id", brandName.Id);
+            writer.WriteString("id", brandName.Id);
 
-            if (brandName.NameOption.IsSet)
-                writer.WriteString("name", brandName.Name);
+            writer.WriteString("name", brandName.Name);
 
-            if (brandName.AuthorizedOption.IsSet)
-                writer.WriteString("authorized", brandName.Authorized);
+            writer.WriteString("authorized", brandName.Authorized);
 
-            if (brandName.CreatedAtOption.IsSet)
-                writer.WriteString("createdAt", brandName.CreatedAt);
+            writer.WriteString("createdAt", brandName.CreatedAt);
         }
     }
 }

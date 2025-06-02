@@ -59,6 +59,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPITypes = [
         'statusID' => 'int',
+        'message' => 'string',
         'result' => '\ABGEO\UBill\Sdk\Model\DeliveryReportItem[]'
     ];
 
@@ -71,6 +72,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'statusID' => 'int64',
+        'message' => null,
         'result' => null
     ];
 
@@ -81,6 +83,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static array $openAPINullables = [
         'statusID' => false,
+        'message' => false,
         'result' => false
     ];
 
@@ -171,6 +174,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $attributeMap = [
         'statusID' => 'statusID',
+        'message' => 'message',
         'result' => 'result'
     ];
 
@@ -181,6 +185,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $setters = [
         'statusID' => 'setStatusID',
+        'message' => 'setMessage',
         'result' => 'setResult'
     ];
 
@@ -191,6 +196,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $getters = [
         'statusID' => 'getStatusID',
+        'message' => 'getMessage',
         'result' => 'getResult'
     ];
 
@@ -252,6 +258,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
     public function __construct(?array $data = null)
     {
         $this->setIfExists('statusID', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('result', $data ?? [], null);
     }
 
@@ -285,9 +292,6 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
         if ($this->container['statusID'] === null) {
             $invalidProperties[] = "'statusID' can't be null";
         }
-        if ($this->container['result'] === null) {
-            $invalidProperties[] = "'result' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -316,7 +320,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets statusID
      *
-     * @param int $statusID statusID
+     * @param int $statusID Response status code
      *
      * @return self
      */
@@ -331,9 +335,36 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
     }
 
     /**
+     * Gets message
+     *
+     * @return string|null
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string|null $message Human-readable response message
+     *
+     * @return self
+     */
+    public function setMessage($message)
+    {
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        }
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
      * Gets result
      *
-     * @return \ABGEO\UBill\Sdk\Model\DeliveryReportItem[]
+     * @return \ABGEO\UBill\Sdk\Model\DeliveryReportItem[]|null
      */
     public function getResult()
     {
@@ -343,7 +374,7 @@ class DeliveryReportResponse implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets result
      *
-     * @param \ABGEO\UBill\Sdk\Model\DeliveryReportItem[] $result result
+     * @param \ABGEO\UBill\Sdk\Model\DeliveryReportItem[]|null $result result
      *
      * @return self
      */

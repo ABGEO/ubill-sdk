@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StatusID** | **long** |  | 
-**Sms** | **string** |  | 
+**StatusID** | **long** | Response status code | 
+**Message** | **string** | Human-readable response message | [optional] 
+**Sms** | **string** |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

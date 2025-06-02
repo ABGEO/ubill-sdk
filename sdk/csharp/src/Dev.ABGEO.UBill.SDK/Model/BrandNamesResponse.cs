@@ -34,36 +34,49 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BrandNamesResponse" /> class.
         /// </summary>
-        /// <param name="statusID">statusID</param>
-        /// <param name="brands">brands</param>
+        /// <param name="statusID">Response status code</param>
+        /// <param name="brands">List of available brand names</param>
+        /// <param name="message">Human-readable response message</param>
         [JsonConstructor]
-        public BrandNamesResponse(long statusID, Option<List<BrandName>?> brands = default)
+        public BrandNamesResponse(long statusID, List<BrandName> brands, Option<string?> message = default)
         {
             StatusID = statusID;
-            BrandsOption = brands;
+            Brands = brands;
+            MessageOption = message;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Gets or Sets StatusID
+        /// Response status code
         /// </summary>
+        /// <value>Response status code</value>
+        /* <example>0</example> */
         [JsonPropertyName("statusID")]
         public long StatusID { get; set; }
 
         /// <summary>
-        /// Used to track the state of Brands
+        /// List of available brand names
+        /// </summary>
+        /// <value>List of available brand names</value>
+        [JsonPropertyName("brands")]
+        public List<BrandName> Brands { get; set; }
+
+        /// <summary>
+        /// Used to track the state of Message
         /// </summary>
         [JsonIgnore]
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<List<BrandName>?> BrandsOption { get; private set; }
+        public Option<string?> MessageOption { get; private set; }
 
         /// <summary>
-        /// Gets or Sets Brands
+        /// Human-readable response message
         /// </summary>
-        [JsonPropertyName("brands")]
-        public List<BrandName>? Brands { get { return this.BrandsOption; } set { this.BrandsOption = new(value); } }
+        /// <value>Human-readable response message</value>
+        /* <example>Success</example> */
+        [JsonPropertyName("message")]
+        public string? Message { get { return this.MessageOption; } set { this.MessageOption = new(value); } }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +88,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             sb.Append("class BrandNamesResponse {\n");
             sb.Append("  StatusID: ").Append(StatusID).Append("\n");
             sb.Append("  Brands: ").Append(Brands).Append("\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -114,6 +128,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
 
             Option<long?> statusID = default;
             Option<List<BrandName>?> brands = default;
+            Option<string?> message = default;
 
             while (utf8JsonReader.Read())
             {
@@ -136,6 +151,9 @@ namespace Dev.ABGEO.UBill.SDK.Model
                         case "brands":
                             brands = new Option<List<BrandName>?>(JsonSerializer.Deserialize<List<BrandName>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
+                        case "message":
+                            message = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
                         default:
                             break;
                     }
@@ -145,13 +163,19 @@ namespace Dev.ABGEO.UBill.SDK.Model
             if (!statusID.IsSet)
                 throw new ArgumentException("Property is required for class BrandNamesResponse.", nameof(statusID));
 
+            if (!brands.IsSet)
+                throw new ArgumentException("Property is required for class BrandNamesResponse.", nameof(brands));
+
             if (statusID.IsSet && statusID.Value == null)
                 throw new ArgumentNullException(nameof(statusID), "Property is not nullable for class BrandNamesResponse.");
 
             if (brands.IsSet && brands.Value == null)
                 throw new ArgumentNullException(nameof(brands), "Property is not nullable for class BrandNamesResponse.");
 
-            return new BrandNamesResponse(statusID.Value!.Value!, brands);
+            if (message.IsSet && message.Value == null)
+                throw new ArgumentNullException(nameof(message), "Property is not nullable for class BrandNamesResponse.");
+
+            return new BrandNamesResponse(statusID.Value!.Value!, brands.Value!, message);
         }
 
         /// <summary>
@@ -178,16 +202,18 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, BrandNamesResponse brandNamesResponse, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (brandNamesResponse.BrandsOption.IsSet && brandNamesResponse.Brands == null)
+            if (brandNamesResponse.Brands == null)
                 throw new ArgumentNullException(nameof(brandNamesResponse.Brands), "Property is required for class BrandNamesResponse.");
+
+            if (brandNamesResponse.MessageOption.IsSet && brandNamesResponse.Message == null)
+                throw new ArgumentNullException(nameof(brandNamesResponse.Message), "Property is required for class BrandNamesResponse.");
 
             writer.WriteNumber("statusID", brandNamesResponse.StatusID);
 
-            if (brandNamesResponse.BrandsOption.IsSet)
-            {
-                writer.WritePropertyName("brands");
-                JsonSerializer.Serialize(writer, brandNamesResponse.Brands, jsonSerializerOptions);
-            }
+            writer.WritePropertyName("brands");
+            JsonSerializer.Serialize(writer, brandNamesResponse.Brands, jsonSerializerOptions);
+            if (brandNamesResponse.MessageOption.IsSet)
+                writer.WriteString("message", brandNamesResponse.Message);
         }
     }
 }

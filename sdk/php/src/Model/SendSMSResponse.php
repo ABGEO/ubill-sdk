@@ -59,8 +59,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'statusID' => 'int',
-        'smsID' => 'string',
-        'message' => 'string'
+        'message' => 'string',
+        'smsID' => 'string'
     ];
 
     /**
@@ -72,8 +72,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'statusID' => 'int64',
-        'smsID' => null,
-        'message' => null
+        'message' => null,
+        'smsID' => null
     ];
 
     /**
@@ -83,8 +83,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'statusID' => false,
-        'smsID' => false,
-        'message' => false
+        'message' => false,
+        'smsID' => false
     ];
 
     /**
@@ -174,8 +174,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'statusID' => 'statusID',
-        'smsID' => 'smsID',
-        'message' => 'message'
+        'message' => 'message',
+        'smsID' => 'smsID'
     ];
 
     /**
@@ -185,8 +185,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'statusID' => 'setStatusID',
-        'smsID' => 'setSmsID',
-        'message' => 'setMessage'
+        'message' => 'setMessage',
+        'smsID' => 'setSmsID'
     ];
 
     /**
@@ -196,8 +196,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'statusID' => 'getStatusID',
-        'smsID' => 'getSmsID',
-        'message' => 'getMessage'
+        'message' => 'getMessage',
+        'smsID' => 'getSmsID'
     ];
 
     /**
@@ -258,8 +258,8 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('statusID', $data ?? [], null);
-        $this->setIfExists('smsID', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('smsID', $data ?? [], null);
     }
 
     /**
@@ -292,9 +292,6 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['statusID'] === null) {
             $invalidProperties[] = "'statusID' can't be null";
         }
-        if ($this->container['message'] === null) {
-            $invalidProperties[] = "'message' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -323,7 +320,7 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets statusID
      *
-     * @param int $statusID statusID
+     * @param int $statusID Response status code
      *
      * @return self
      */
@@ -333,6 +330,33 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable statusID cannot be null');
         }
         $this->container['statusID'] = $statusID;
+
+        return $this;
+    }
+
+    /**
+     * Gets message
+     *
+     * @return string|null
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string|null $message Human-readable response message
+     *
+     * @return self
+     */
+    public function setMessage($message)
+    {
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        }
+        $this->container['message'] = $message;
 
         return $this;
     }
@@ -360,33 +384,6 @@ class SendSMSResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable smsID cannot be null');
         }
         $this->container['smsID'] = $smsID;
-
-        return $this;
-    }
-
-    /**
-     * Gets message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->container['message'];
-    }
-
-    /**
-     * Sets message
-     *
-     * @param string $message message
-     *
-     * @return self
-     */
-    public function setMessage($message)
-    {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
-        }
-        $this->container['message'] = $message;
 
         return $this;
     }

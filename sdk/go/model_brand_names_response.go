@@ -22,8 +22,12 @@ var _ MappedNullable = &BrandNamesResponse{}
 
 // BrandNamesResponse struct for BrandNamesResponse
 type BrandNamesResponse struct {
-	StatusID int64       `json:"statusID"`
-	Brands   []BrandName `json:"brands,omitempty"`
+	// Response status code
+	StatusID int64 `json:"statusID"`
+	// Human-readable response message
+	Message *string `json:"message,omitempty"`
+	// List of available brand names
+	Brands []BrandName `json:"brands"`
 }
 
 type _BrandNamesResponse BrandNamesResponse
@@ -32,9 +36,10 @@ type _BrandNamesResponse BrandNamesResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBrandNamesResponse(statusID int64) *BrandNamesResponse {
+func NewBrandNamesResponse(statusID int64, brands []BrandName) *BrandNamesResponse {
 	this := BrandNamesResponse{}
 	this.StatusID = statusID
+	this.Brands = brands
 	return &this
 }
 
@@ -70,34 +75,58 @@ func (o *BrandNamesResponse) SetStatusID(v int64) {
 	o.StatusID = v
 }
 
-// GetBrands returns the Brands field value if set, zero value otherwise.
-func (o *BrandNamesResponse) GetBrands() []BrandName {
-	if o == nil || IsNil(o.Brands) {
-		var ret []BrandName
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *BrandNamesResponse) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
 		return ret
 	}
-	return o.Brands
+	return *o.Message
 }
 
-// GetBrandsOk returns a tuple with the Brands field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BrandNamesResponse) GetBrandsOk() ([]BrandName, bool) {
-	if o == nil || IsNil(o.Brands) {
+func (o *BrandNamesResponse) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return o.Brands, true
+	return o.Message, true
 }
 
-// HasBrands returns a boolean if a field has been set.
-func (o *BrandNamesResponse) HasBrands() bool {
-	if o != nil && !IsNil(o.Brands) {
+// HasMessage returns a boolean if a field has been set.
+func (o *BrandNamesResponse) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
 	return false
 }
 
-// SetBrands gets a reference to the given []BrandName and assigns it to the Brands field.
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *BrandNamesResponse) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetBrands returns the Brands field value
+func (o *BrandNamesResponse) GetBrands() []BrandName {
+	if o == nil {
+		var ret []BrandName
+		return ret
+	}
+
+	return o.Brands
+}
+
+// GetBrandsOk returns a tuple with the Brands field value
+// and a boolean to check if the value has been set.
+func (o *BrandNamesResponse) GetBrandsOk() ([]BrandName, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Brands, true
+}
+
+// SetBrands sets field value
 func (o *BrandNamesResponse) SetBrands(v []BrandName) {
 	o.Brands = v
 }
@@ -113,9 +142,10 @@ func (o BrandNamesResponse) MarshalJSON() ([]byte, error) {
 func (o BrandNamesResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["statusID"] = o.StatusID
-	if !IsNil(o.Brands) {
-		toSerialize["brands"] = o.Brands
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
 	}
+	toSerialize["brands"] = o.Brands
 	return toSerialize, nil
 }
 
@@ -125,6 +155,7 @@ func (o *BrandNamesResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"statusID",
+		"brands",
 	}
 
 	allProperties := make(map[string]interface{})

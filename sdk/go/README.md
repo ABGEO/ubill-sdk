@@ -79,16 +79,20 @@ All URIs are relative to *https://api.ubill.dev/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*SmsAPI* | [**CreateBrandName**](docs/SmsAPI.md#createbrandname) | **Post** /sms/brandNameCreate | Create Brand Name
 *SmsAPI* | [**GetBalance**](docs/SmsAPI.md#getbalance) | **Get** /sms/balance | Get SMS Balance
-*SmsAPI* | [**GetBrandNames**](docs/SmsAPI.md#getbrandnames) | **Get** /sms/brandNames | Get All BrandNames
+*SmsAPI* | [**GetBrandNames**](docs/SmsAPI.md#getbrandnames) | **Get** /sms/brandNames | Get All Brand Names
 *SmsAPI* | [**GetDeliveryReport**](docs/SmsAPI.md#getdeliveryreport) | **Get** /sms/report/{smsID} | Get Delivery Report
 *SmsAPI* | [**SendSMS**](docs/SmsAPI.md#sendsms) | **Post** /sms/send | Send SMS
 
 
 ## Documentation For Models
 
+ - [BaseResponse](docs/BaseResponse.md)
  - [BrandName](docs/BrandName.md)
  - [BrandNamesResponse](docs/BrandNamesResponse.md)
+ - [CreateBrandNamePayload](docs/CreateBrandNamePayload.md)
+ - [CreateBrandNameResponse](docs/CreateBrandNameResponse.md)
  - [DeliveryReportItem](docs/DeliveryReportItem.md)
  - [DeliveryReportResponse](docs/DeliveryReportResponse.md)
  - [SMSBalanceResponse](docs/SMSBalanceResponse.md)
@@ -104,7 +108,7 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: key
-- **Location**: HTTP header
+- **Location**: URL query string
 
 Note, each API key must be added to a map of `map[string]APIKey` where the key is: api_key and passed in as the auth context for each request.
 

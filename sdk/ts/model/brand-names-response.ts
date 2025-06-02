@@ -15,25 +15,15 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import type { BaseResponse } from './base-response';
+// May contain unused imports in some cases
+// @ts-ignore
 import type { BrandName } from './brand-name';
 
 /**
- * 
+ * @type BrandNamesResponse
  * @export
- * @interface BrandNamesResponse
  */
-export interface BrandNamesResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof BrandNamesResponse
-     */
-    'statusID': number;
-    /**
-     * 
-     * @type {Array<BrandName>}
-     * @memberof BrandNamesResponse
-     */
-    'brands'?: Array<BrandName>;
-}
+export type BrandNamesResponse = BaseResponse;
+
 

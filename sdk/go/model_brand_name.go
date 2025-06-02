@@ -12,7 +12,9 @@ Contact: info@ubill.ge
 package ubill
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the BrandName type satisfies the MappedNullable interface at compile time
@@ -20,18 +22,24 @@ var _ MappedNullable = &BrandName{}
 
 // BrandName struct for BrandName
 type BrandName struct {
-	Id         *string `json:"id,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	Authorized *string `json:"authorized,omitempty"`
-	CreatedAt  *string `json:"createdAt,omitempty"`
+	Id         string `json:"id"`
+	Name       string `json:"name"`
+	Authorized string `json:"authorized"`
+	CreatedAt  string `json:"createdAt"`
 }
+
+type _BrandName BrandName
 
 // NewBrandName instantiates a new BrandName object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBrandName() *BrandName {
+func NewBrandName(id string, name string, authorized string, createdAt string) *BrandName {
 	this := BrandName{}
+	this.Id = id
+	this.Name = name
+	this.Authorized = authorized
+	this.CreatedAt = createdAt
 	return &this
 }
 
@@ -43,132 +51,100 @@ func NewBrandNameWithDefaults() *BrandName {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *BrandName) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *BrandName) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *BrandName) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *BrandName) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *BrandName) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *BrandName) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *BrandName) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *BrandName) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetAuthorized returns the Authorized field value if set, zero value otherwise.
+// GetAuthorized returns the Authorized field value
 func (o *BrandName) GetAuthorized() string {
-	if o == nil || IsNil(o.Authorized) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Authorized
+
+	return o.Authorized
 }
 
-// GetAuthorizedOk returns a tuple with the Authorized field value if set, nil otherwise
+// GetAuthorizedOk returns a tuple with the Authorized field value
 // and a boolean to check if the value has been set.
 func (o *BrandName) GetAuthorizedOk() (*string, bool) {
-	if o == nil || IsNil(o.Authorized) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Authorized, true
+	return &o.Authorized, true
 }
 
-// HasAuthorized returns a boolean if a field has been set.
-func (o *BrandName) HasAuthorized() bool {
-	if o != nil && !IsNil(o.Authorized) {
-		return true
-	}
-
-	return false
-}
-
-// SetAuthorized gets a reference to the given string and assigns it to the Authorized field.
+// SetAuthorized sets field value
 func (o *BrandName) SetAuthorized(v string) {
-	o.Authorized = &v
+	o.Authorized = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *BrandName) GetCreatedAt() string {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *BrandName) GetCreatedAtOk() (*string, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *BrandName) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *BrandName) SetCreatedAt(v string) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
 func (o BrandName) MarshalJSON() ([]byte, error) {
@@ -181,19 +157,51 @@ func (o BrandName) MarshalJSON() ([]byte, error) {
 
 func (o BrandName) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Authorized) {
-		toSerialize["authorized"] = o.Authorized
-	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["authorized"] = o.Authorized
+	toSerialize["createdAt"] = o.CreatedAt
 	return toSerialize, nil
+}
+
+func (o *BrandName) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"authorized",
+		"createdAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBrandName := _BrandName{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBrandName)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BrandName(varBrandName)
+
+	return err
 }
 
 type NullableBrandName struct {

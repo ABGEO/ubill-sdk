@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**statusID** | **number** |  | [default to undefined]
-**result** | [**Array&lt;DeliveryReportItem&gt;**](DeliveryReportItem.md) |  | [default to undefined]
+**statusID** | **number** | Response status code | [default to undefined]
+**message** | **string** | Human-readable response message | [optional] [default to undefined]
+**result** | [**Array&lt;DeliveryReportItem&gt;**](DeliveryReportItem.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -15,6 +16,7 @@ import { DeliveryReportResponse } from 'abgeo/ubill-sdk';
 
 const instance: DeliveryReportResponse = {
     statusID,
+    message,
     result,
 };
 ```

@@ -7,4 +7,4 @@ services:
       SWAGGER_JSON: /app/openapi.yaml
       BASE_URL: /
     volumes:
-      - "./spec/openapi.yaml:/app/openapi.yaml:ro
+      - ./spec/openapi.yaml:/app/openapi.yaml:ro

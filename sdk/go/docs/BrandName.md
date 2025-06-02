@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Authorized** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
+**Authorized** | **string** |  | 
+**CreatedAt** | **string** |  | 
 
 ## Methods
 
 ### NewBrandName
 
-`func NewBrandName() *BrandName`
+`func NewBrandName(id string, name string, authorized string, createdAt string, ) *BrandName`
 
 NewBrandName instantiates a new BrandName object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *BrandName) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *BrandName) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetAuthorized
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetAuthorized sets Authorized field to given value.
 
-### HasAuthorized
-
-`func (o *BrandName) HasAuthorized() bool`
-
-HasAuthorized returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
-
-`func (o *BrandName) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -13,24 +13,14 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import type { BaseResponse } from './base-response';
 
 /**
- * 
+ * @type SMSBalanceResponse
  * @export
- * @interface SMSBalanceResponse
  */
-export interface SMSBalanceResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof SMSBalanceResponse
-     */
-    'statusID': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SMSBalanceResponse
-     */
-    'sms': string;
-}
+export type SMSBalanceResponse = BaseResponse;
+
 

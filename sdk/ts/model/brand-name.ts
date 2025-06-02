@@ -25,24 +25,24 @@ export interface BrandName {
      * @type {string}
      * @memberof BrandName
      */
-    'id'?: string;
+    'id': string;
     /**
      * 
      * @type {string}
      * @memberof BrandName
      */
-    'name'?: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof BrandName
      */
-    'authorized'?: string;
+    'authorized': string;
     /**
      * 
      * @type {string}
      * @memberof BrandName
      */
-    'createdAt'?: string;
+    'createdAt': string;
 }
 

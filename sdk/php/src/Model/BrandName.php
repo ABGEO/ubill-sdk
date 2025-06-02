@@ -296,6 +296,18 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['authorized'] === null) {
+            $invalidProperties[] = "'authorized' can't be null";
+        }
+        if ($this->container['createdAt'] === null) {
+            $invalidProperties[] = "'createdAt' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -314,7 +326,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -324,7 +336,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string $id id
      *
      * @return self
      */
@@ -341,7 +353,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -351,7 +363,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -368,7 +380,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets authorized
      *
-     * @return string|null
+     * @return string
      */
     public function getAuthorized()
     {
@@ -378,7 +390,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets authorized
      *
-     * @param string|null $authorized authorized
+     * @param string $authorized authorized
      *
      * @return self
      */
@@ -395,7 +407,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets createdAt
      *
-     * @return string|null
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -405,7 +417,7 @@ class BrandName implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets createdAt
      *
-     * @param string|null $createdAt createdAt
+     * @param string $createdAt createdAt
      *
      * @return self
      */

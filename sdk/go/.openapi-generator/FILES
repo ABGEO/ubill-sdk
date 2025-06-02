@@ -4,8 +4,11 @@ api/openapi.yaml
 api_sms.go
 client.go
 configuration.go
+docs/BaseResponse.md
 docs/BrandName.md
 docs/BrandNamesResponse.md
+docs/CreateBrandNamePayload.md
+docs/CreateBrandNameResponse.md
 docs/DeliveryReportItem.md
 docs/DeliveryReportResponse.md
 docs/SMSBalanceResponse.md
@@ -14,8 +17,11 @@ docs/SendSMSResponse.md
 docs/SmsAPI.md
 go.mod
 go.sum
+model_base_response.go
 model_brand_name.go
 model_brand_names_response.go
+model_create_brand_name_payload.go
+model_create_brand_name_response.go
 model_delivery_report_item.go
 model_delivery_report_response.go
 model_send_sms_response.go

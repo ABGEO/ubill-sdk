@@ -61,13 +61,13 @@ $apiInstance = new ABGEO\UBill\Sdk\Api\SmsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$body = NULL; // mixed
+$createBrandNamePayload = new \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload(); // \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload | Brand Name payload to create
 
 try {
-    $result = $apiInstance->getBalance($body);
+    $result = $apiInstance->createBrandName($createBrandNamePayload);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling SmsApi->getBalance: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling SmsApi->createBrandName: ', $e->getMessage(), PHP_EOL;
 }
 
 ```
@@ -78,15 +78,19 @@ All URIs are relative to *https://api.ubill.dev/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*SmsApi* | [**createBrandName**](docs/Api/SmsApi.md#createbrandname) | **POST** /sms/brandNameCreate | Create Brand Name
 *SmsApi* | [**getBalance**](docs/Api/SmsApi.md#getbalance) | **GET** /sms/balance | Get SMS Balance
-*SmsApi* | [**getBrandNames**](docs/Api/SmsApi.md#getbrandnames) | **GET** /sms/brandNames | Get All BrandNames
+*SmsApi* | [**getBrandNames**](docs/Api/SmsApi.md#getbrandnames) | **GET** /sms/brandNames | Get All Brand Names
 *SmsApi* | [**getDeliveryReport**](docs/Api/SmsApi.md#getdeliveryreport) | **GET** /sms/report/{smsID} | Get Delivery Report
 *SmsApi* | [**sendSMS**](docs/Api/SmsApi.md#sendsms) | **POST** /sms/send | Send SMS
 
 ## Models
 
+- [BaseResponse](docs/Model/BaseResponse.md)
 - [BrandName](docs/Model/BrandName.md)
 - [BrandNamesResponse](docs/Model/BrandNamesResponse.md)
+- [CreateBrandNamePayload](docs/Model/CreateBrandNamePayload.md)
+- [CreateBrandNameResponse](docs/Model/CreateBrandNameResponse.md)
 - [DeliveryReportItem](docs/Model/DeliveryReportItem.md)
 - [DeliveryReportResponse](docs/Model/DeliveryReportResponse.md)
 - [SMSBalanceResponse](docs/Model/SMSBalanceResponse.md)
@@ -100,7 +104,7 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: key
-- **Location**: HTTP header
+- **Location**: URL query string
 
 
 ## Tests

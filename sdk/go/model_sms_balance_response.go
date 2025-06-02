@@ -22,8 +22,11 @@ var _ MappedNullable = &SMSBalanceResponse{}
 
 // SMSBalanceResponse struct for SMSBalanceResponse
 type SMSBalanceResponse struct {
-	StatusID int64  `json:"statusID"`
-	Sms      string `json:"sms"`
+	// Response status code
+	StatusID int64 `json:"statusID"`
+	// Human-readable response message
+	Message *string `json:"message,omitempty"`
+	Sms     *string `json:"sms,omitempty"`
 }
 
 type _SMSBalanceResponse SMSBalanceResponse
@@ -32,10 +35,9 @@ type _SMSBalanceResponse SMSBalanceResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSMSBalanceResponse(statusID int64, sms string) *SMSBalanceResponse {
+func NewSMSBalanceResponse(statusID int64) *SMSBalanceResponse {
 	this := SMSBalanceResponse{}
 	this.StatusID = statusID
-	this.Sms = sms
 	return &this
 }
 
@@ -71,28 +73,68 @@ func (o *SMSBalanceResponse) SetStatusID(v int64) {
 	o.StatusID = v
 }
 
-// GetSms returns the Sms field value
-func (o *SMSBalanceResponse) GetSms() string {
-	if o == nil {
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *SMSBalanceResponse) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Sms
+	return *o.Message
 }
 
-// GetSmsOk returns a tuple with the Sms field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SMSBalanceResponse) GetSmsOk() (*string, bool) {
-	if o == nil {
+func (o *SMSBalanceResponse) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Sms, true
+	return o.Message, true
 }
 
-// SetSms sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *SMSBalanceResponse) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *SMSBalanceResponse) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetSms returns the Sms field value if set, zero value otherwise.
+func (o *SMSBalanceResponse) GetSms() string {
+	if o == nil || IsNil(o.Sms) {
+		var ret string
+		return ret
+	}
+	return *o.Sms
+}
+
+// GetSmsOk returns a tuple with the Sms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SMSBalanceResponse) GetSmsOk() (*string, bool) {
+	if o == nil || IsNil(o.Sms) {
+		return nil, false
+	}
+	return o.Sms, true
+}
+
+// HasSms returns a boolean if a field has been set.
+func (o *SMSBalanceResponse) HasSms() bool {
+	if o != nil && !IsNil(o.Sms) {
+		return true
+	}
+
+	return false
+}
+
+// SetSms gets a reference to the given string and assigns it to the Sms field.
 func (o *SMSBalanceResponse) SetSms(v string) {
-	o.Sms = v
+	o.Sms = &v
 }
 
 func (o SMSBalanceResponse) MarshalJSON() ([]byte, error) {
@@ -106,7 +148,12 @@ func (o SMSBalanceResponse) MarshalJSON() ([]byte, error) {
 func (o SMSBalanceResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["statusID"] = o.StatusID
-	toSerialize["sms"] = o.Sms
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Sms) {
+		toSerialize["sms"] = o.Sms
+	}
 	return toSerialize, nil
 }
 
@@ -116,7 +163,6 @@ func (o *SMSBalanceResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"statusID",
-		"sms",
 	}
 
 	allProperties := make(map[string]interface{})

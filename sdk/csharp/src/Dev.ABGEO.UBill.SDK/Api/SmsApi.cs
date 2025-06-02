@@ -37,16 +37,38 @@ namespace Dev.ABGEO.UBill.SDK.Api
         SmsApiEvents Events { get; }
 
         /// <summary>
+        /// Create Brand Name
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="createBrandNamePayload">Brand Name payload to create (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns><see cref="Task"/>&lt;<see cref="ICreateBrandNameApiResponse"/>&gt;</returns>
+        Task<ICreateBrandNameApiResponse> CreateBrandNameAsync(Option<CreateBrandNamePayload> createBrandNamePayload = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Create Brand Name
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="createBrandNamePayload">Brand Name payload to create (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns><see cref="Task"/>&lt;<see cref="ICreateBrandNameApiResponse"/>?&gt;</returns>
+        Task<ICreateBrandNameApiResponse?> CreateBrandNameOrDefaultAsync(Option<CreateBrandNamePayload> createBrandNamePayload = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Get SMS Balance
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBalanceApiResponse"/>&gt;</returns>
-        Task<IGetBalanceApiResponse> GetBalanceAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IGetBalanceApiResponse> GetBalanceAsync(System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get SMS Balance
@@ -54,33 +76,30 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <remarks>
         /// 
         /// </remarks>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBalanceApiResponse"/>?&gt;</returns>
-        Task<IGetBalanceApiResponse?> GetBalanceOrDefaultAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IGetBalanceApiResponse?> GetBalanceOrDefaultAsync(System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get All BrandNames
+        /// Get All Brand Names
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBrandNamesApiResponse"/>&gt;</returns>
-        Task<IGetBrandNamesApiResponse> GetBrandNamesAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IGetBrandNamesApiResponse> GetBrandNamesAsync(System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get All BrandNames
+        /// Get All Brand Names
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBrandNamesApiResponse"/>?&gt;</returns>
-        Task<IGetBrandNamesApiResponse?> GetBrandNamesOrDefaultAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IGetBrandNamesApiResponse?> GetBrandNamesOrDefaultAsync(System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get Delivery Report
@@ -89,11 +108,10 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="smsID">ID of SMS to get report for</param>
-        /// <param name="body"> (optional)</param>
+        /// <param name="smsID">Unique identifier of the SMS</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetDeliveryReportApiResponse"/>&gt;</returns>
-        Task<IGetDeliveryReportApiResponse> GetDeliveryReportAsync(long smsID, Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IGetDeliveryReportApiResponse> GetDeliveryReportAsync(long smsID, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get Delivery Report
@@ -101,11 +119,10 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <remarks>
         /// 
         /// </remarks>
-        /// <param name="smsID">ID of SMS to get report for</param>
-        /// <param name="body"> (optional)</param>
+        /// <param name="smsID">Unique identifier of the SMS</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetDeliveryReportApiResponse"/>?&gt;</returns>
-        Task<IGetDeliveryReportApiResponse?> GetDeliveryReportOrDefaultAsync(long smsID, Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IGetDeliveryReportApiResponse?> GetDeliveryReportOrDefaultAsync(long smsID, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Send SMS
@@ -114,7 +131,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sMSPayload">Pet object that needs to be added to the store (optional)</param>
+        /// <param name="sMSPayload">SMS payload for sending messages (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="ISendSMSApiResponse"/>&gt;</returns>
         Task<ISendSMSApiResponse> SendSMSAsync(Option<SMSPayload> sMSPayload = default, System.Threading.CancellationToken cancellationToken = default);
@@ -125,10 +142,28 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <remarks>
         /// 
         /// </remarks>
-        /// <param name="sMSPayload">Pet object that needs to be added to the store (optional)</param>
+        /// <param name="sMSPayload">SMS payload for sending messages (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="ISendSMSApiResponse"/>?&gt;</returns>
         Task<ISendSMSApiResponse?> SendSMSOrDefaultAsync(Option<SMSPayload> sMSPayload = default, System.Threading.CancellationToken cancellationToken = default);
+    }
+
+    /// <summary>
+    /// The <see cref="ICreateBrandNameApiResponse"/>
+    /// </summary>
+    public interface ICreateBrandNameApiResponse : Dev.ABGEO.UBill.SDK.Client.IApiResponse, IOk<Dev.ABGEO.UBill.SDK.Model.CreateBrandNameResponse?>
+    {
+        /// <summary>
+        /// Returns true if the response is 200 Ok
+        /// </summary>
+        /// <returns></returns>
+        bool IsOk { get; }
+
+        /// <summary>
+        /// Returns true if the response is 401 Unauthorized
+        /// </summary>
+        /// <returns></returns>
+        bool IsUnauthorized { get; }
     }
 
     /// <summary>
@@ -208,6 +243,26 @@ namespace Dev.ABGEO.UBill.SDK.Api
     /// </summary>
     public class SmsApiEvents
     {
+        /// <summary>
+        /// The event raised after the server response
+        /// </summary>
+        public event EventHandler<ApiResponseEventArgs>? OnCreateBrandName;
+
+        /// <summary>
+        /// The event raised after an error querying the server
+        /// </summary>
+        public event EventHandler<ExceptionEventArgs>? OnErrorCreateBrandName;
+
+        internal void ExecuteOnCreateBrandName(SmsApi.CreateBrandNameApiResponse apiResponse)
+        {
+            OnCreateBrandName?.Invoke(this, new ApiResponseEventArgs(apiResponse));
+        }
+
+        internal void ExecuteOnErrorCreateBrandName(Exception exception)
+        {
+            OnErrorCreateBrandName?.Invoke(this, new ExceptionEventArgs(exception));
+        }
+
         /// <summary>
         /// The event raised after the server response
         /// </summary>
@@ -336,17 +391,28 @@ namespace Dev.ABGEO.UBill.SDK.Api
             ApiKeyProvider = apiKeyProvider;
         }
 
-        partial void FormatGetBalance(ref Option<Object?> body);
+        partial void FormatCreateBrandName(Option<CreateBrandNamePayload> createBrandNamePayload);
+
+        /// <summary>
+        /// Validates the request parameters
+        /// </summary>
+        /// <param name="createBrandNamePayload"></param>
+        /// <returns></returns>
+        private void ValidateCreateBrandName(Option<CreateBrandNamePayload> createBrandNamePayload)
+        {
+            if (createBrandNamePayload.IsSet && createBrandNamePayload.Value == null)
+                throw new ArgumentNullException(nameof(createBrandNamePayload));
+        }
 
         /// <summary>
         /// Processes the server response
         /// </summary>
         /// <param name="apiResponseLocalVar"></param>
-        /// <param name="body"></param>
-        private void AfterGetBalanceDefaultImplementation(IGetBalanceApiResponse apiResponseLocalVar, Option<Object?> body)
+        /// <param name="createBrandNamePayload"></param>
+        private void AfterCreateBrandNameDefaultImplementation(ICreateBrandNameApiResponse apiResponseLocalVar, Option<CreateBrandNamePayload> createBrandNamePayload)
         {
             bool suppressDefaultLog = false;
-            AfterGetBalance(ref suppressDefaultLog, apiResponseLocalVar, body);
+            AfterCreateBrandName(ref suppressDefaultLog, apiResponseLocalVar, createBrandNamePayload);
             if (!suppressDefaultLog)
                 Logger.LogInformation("{0,-9} | {1} | {3}", (apiResponseLocalVar.DownloadedAt - apiResponseLocalVar.RequestedAt).TotalSeconds, apiResponseLocalVar.StatusCode, apiResponseLocalVar.Path);
         }
@@ -356,8 +422,8 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// </summary>
         /// <param name="suppressDefaultLog"></param>
         /// <param name="apiResponseLocalVar"></param>
-        /// <param name="body"></param>
-        partial void AfterGetBalance(ref bool suppressDefaultLog, IGetBalanceApiResponse apiResponseLocalVar, Option<Object?> body);
+        /// <param name="createBrandNamePayload"></param>
+        partial void AfterCreateBrandName(ref bool suppressDefaultLog, ICreateBrandNameApiResponse apiResponseLocalVar, Option<CreateBrandNamePayload> createBrandNamePayload);
 
         /// <summary>
         /// Logs exceptions that occur while retrieving the server response
@@ -365,11 +431,11 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="exceptionLocalVar"></param>
         /// <param name="pathFormatLocalVar"></param>
         /// <param name="pathLocalVar"></param>
-        /// <param name="body"></param>
-        private void OnErrorGetBalanceDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, Option<Object?> body)
+        /// <param name="createBrandNamePayload"></param>
+        private void OnErrorCreateBrandNameDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, Option<CreateBrandNamePayload> createBrandNamePayload)
         {
             bool suppressDefaultLogLocalVar = false;
-            OnErrorGetBalance(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, body);
+            OnErrorCreateBrandName(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, createBrandNamePayload);
             if (!suppressDefaultLogLocalVar)
                 Logger.LogError(exceptionLocalVar, "An error occurred while sending the request to the server.");
         }
@@ -381,20 +447,255 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="exceptionLocalVar"></param>
         /// <param name="pathFormatLocalVar"></param>
         /// <param name="pathLocalVar"></param>
-        /// <param name="body"></param>
-        partial void OnErrorGetBalance(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, Option<Object?> body);
+        /// <param name="createBrandNamePayload"></param>
+        partial void OnErrorCreateBrandName(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, Option<CreateBrandNamePayload> createBrandNamePayload);
+
+        /// <summary>
+        /// Create Brand Name 
+        /// </summary>
+        /// <param name="createBrandNamePayload">Brand Name payload to create (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns><see cref="Task"/>&lt;<see cref="ICreateBrandNameApiResponse"/>&gt;</returns>
+        public async Task<ICreateBrandNameApiResponse?> CreateBrandNameOrDefaultAsync(Option<CreateBrandNamePayload> createBrandNamePayload = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                return await CreateBrandNameAsync(createBrandNamePayload, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Create Brand Name 
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="createBrandNamePayload">Brand Name payload to create (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns><see cref="Task"/>&lt;<see cref="ICreateBrandNameApiResponse"/>&gt;</returns>
+        public async Task<ICreateBrandNameApiResponse> CreateBrandNameAsync(Option<CreateBrandNamePayload> createBrandNamePayload = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            UriBuilder uriBuilderLocalVar = new UriBuilder();
+
+            try
+            {
+                ValidateCreateBrandName(createBrandNamePayload);
+
+                FormatCreateBrandName(createBrandNamePayload);
+
+                using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
+                {
+                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
+                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
+                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
+                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                        ? "/sms/brandNameCreate"
+                        : string.Concat(HttpClient.BaseAddress.AbsolutePath, "/sms/brandNameCreate");
+
+                    System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
+
+                    if (createBrandNamePayload.IsSet)
+                        httpRequestMessageLocalVar.Content = (createBrandNamePayload.Value as object) is System.IO.Stream stream
+                            ? httpRequestMessageLocalVar.Content = new StreamContent(stream)
+                            : httpRequestMessageLocalVar.Content = new StringContent(JsonSerializer.Serialize(createBrandNamePayload.Value, _jsonSerializerOptions));
+
+                    List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
+                    ApiKeyToken apiKeyTokenLocalVar1 = (ApiKeyToken) await ApiKeyProvider.GetAsync("key", cancellationToken).ConfigureAwait(false);
+                    tokenBaseLocalVars.Add(apiKeyTokenLocalVar1);
+
+                    apiKeyTokenLocalVar1.UseInQuery(httpRequestMessageLocalVar, uriBuilderLocalVar, parseQueryStringLocalVar);
+
+                    uriBuilderLocalVar.Query = parseQueryStringLocalVar.ToString();
+                    httpRequestMessageLocalVar.RequestUri = uriBuilderLocalVar.Uri;
+
+                    string[] contentTypes = new string[] {
+                        "application/json"
+                    };
+
+                    string? contentTypeLocalVar = ClientUtils.SelectHeaderContentType(contentTypes);
+
+                    if (contentTypeLocalVar != null && httpRequestMessageLocalVar.Content != null)
+                        httpRequestMessageLocalVar.Content.Headers.ContentType = new MediaTypeHeaderValue(contentTypeLocalVar);
+
+                    string[] acceptLocalVars = new string[] {
+                        "application/json",
+                        "text/plain"
+                    };
+
+                    string? acceptLocalVar = ClientUtils.SelectHeaderAccept(acceptLocalVars);
+
+                    if (acceptLocalVar != null)
+                        httpRequestMessageLocalVar.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(acceptLocalVar));
+
+                    httpRequestMessageLocalVar.Method = HttpMethod.Post;
+
+                    DateTime requestedAtLocalVar = DateTime.UtcNow;
+
+                    using (HttpResponseMessage httpResponseMessageLocalVar = await HttpClient.SendAsync(httpRequestMessageLocalVar, cancellationToken).ConfigureAwait(false))
+                    {
+                        string responseContentLocalVar = await httpResponseMessageLocalVar.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+
+                        ILogger<CreateBrandNameApiResponse> apiResponseLoggerLocalVar = LoggerFactory.CreateLogger<CreateBrandNameApiResponse>();
+
+                        CreateBrandNameApiResponse apiResponseLocalVar = new(apiResponseLoggerLocalVar, httpRequestMessageLocalVar, httpResponseMessageLocalVar, responseContentLocalVar, "/sms/brandNameCreate", requestedAtLocalVar, _jsonSerializerOptions);
+
+                        AfterCreateBrandNameDefaultImplementation(apiResponseLocalVar, createBrandNamePayload);
+
+                        Events.ExecuteOnCreateBrandName(apiResponseLocalVar);
+
+                        if (apiResponseLocalVar.StatusCode == (HttpStatusCode) 429)
+                            foreach(TokenBase tokenBaseLocalVar in tokenBaseLocalVars)
+                                tokenBaseLocalVar.BeginRateLimit();
+
+                        return apiResponseLocalVar;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                OnErrorCreateBrandNameDefaultImplementation(e, "/sms/brandNameCreate", uriBuilderLocalVar.Path, createBrandNamePayload);
+                Events.ExecuteOnErrorCreateBrandName(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="CreateBrandNameApiResponse"/>
+        /// </summary>
+        public partial class CreateBrandNameApiResponse : Dev.ABGEO.UBill.SDK.Client.ApiResponse, ICreateBrandNameApiResponse
+        {
+            /// <summary>
+            /// The logger
+            /// </summary>
+            public ILogger<CreateBrandNameApiResponse> Logger { get; }
+
+            /// <summary>
+            /// The <see cref="CreateBrandNameApiResponse"/>
+            /// </summary>
+            /// <param name="logger"></param>
+            /// <param name="httpRequestMessage"></param>
+            /// <param name="httpResponseMessage"></param>
+            /// <param name="rawContent"></param>
+            /// <param name="path"></param>
+            /// <param name="requestedAt"></param>
+            /// <param name="jsonSerializerOptions"></param>
+            public CreateBrandNameApiResponse(ILogger<CreateBrandNameApiResponse> logger, System.Net.Http.HttpRequestMessage httpRequestMessage, System.Net.Http.HttpResponseMessage httpResponseMessage, string rawContent, string path, DateTime requestedAt, System.Text.Json.JsonSerializerOptions jsonSerializerOptions) : base(httpRequestMessage, httpResponseMessage, rawContent, path, requestedAt, jsonSerializerOptions)
+            {
+                Logger = logger;
+                OnCreated(httpRequestMessage, httpResponseMessage);
+            }
+
+            partial void OnCreated(global::System.Net.Http.HttpRequestMessage httpRequestMessage, System.Net.Http.HttpResponseMessage httpResponseMessage);
+
+            /// <summary>
+            /// Returns true if the response is 200 Ok
+            /// </summary>
+            /// <returns></returns>
+            public bool IsOk => 200 == (int)StatusCode;
+
+            /// <summary>
+            /// Deserializes the response if the response is 200 Ok
+            /// </summary>
+            /// <returns></returns>
+            public Dev.ABGEO.UBill.SDK.Model.CreateBrandNameResponse? Ok()
+            {
+                // This logic may be modified with the AsModel.mustache template
+                return IsOk
+                    ? System.Text.Json.JsonSerializer.Deserialize<Dev.ABGEO.UBill.SDK.Model.CreateBrandNameResponse>(RawContent, _jsonSerializerOptions)
+                    : null;
+            }
+
+            /// <summary>
+            /// Returns true if the response is 200 Ok and the deserialized response is not null
+            /// </summary>
+            /// <param name="result"></param>
+            /// <returns></returns>
+            public bool TryOk([NotNullWhen(true)]out Dev.ABGEO.UBill.SDK.Model.CreateBrandNameResponse? result)
+            {
+                result = null;
+
+                try
+                {
+                    result = Ok();
+                } catch (Exception e)
+                {
+                    OnDeserializationErrorDefaultImplementation(e, (HttpStatusCode)200);
+                }
+
+                return result != null;
+            }
+
+            /// <summary>
+            /// Returns true if the response is 401 Unauthorized
+            /// </summary>
+            /// <returns></returns>
+            public bool IsUnauthorized => 401 == (int)StatusCode;
+
+            private void OnDeserializationErrorDefaultImplementation(Exception exception, HttpStatusCode httpStatusCode)
+            {
+                bool suppressDefaultLog = false;
+                OnDeserializationError(ref suppressDefaultLog, exception, httpStatusCode);
+                if (!suppressDefaultLog)
+                    Logger.LogError(exception, "An error occurred while deserializing the {code} response.", httpStatusCode);
+            }
+
+            partial void OnDeserializationError(ref bool suppressDefaultLog, Exception exception, HttpStatusCode httpStatusCode);
+        }
+
+        /// <summary>
+        /// Processes the server response
+        /// </summary>
+        /// <param name="apiResponseLocalVar"></param>
+        private void AfterGetBalanceDefaultImplementation(IGetBalanceApiResponse apiResponseLocalVar)
+        {
+            bool suppressDefaultLog = false;
+            AfterGetBalance(ref suppressDefaultLog, apiResponseLocalVar);
+            if (!suppressDefaultLog)
+                Logger.LogInformation("{0,-9} | {1} | {3}", (apiResponseLocalVar.DownloadedAt - apiResponseLocalVar.RequestedAt).TotalSeconds, apiResponseLocalVar.StatusCode, apiResponseLocalVar.Path);
+        }
+
+        /// <summary>
+        /// Processes the server response
+        /// </summary>
+        /// <param name="suppressDefaultLog"></param>
+        /// <param name="apiResponseLocalVar"></param>
+        partial void AfterGetBalance(ref bool suppressDefaultLog, IGetBalanceApiResponse apiResponseLocalVar);
+
+        /// <summary>
+        /// Logs exceptions that occur while retrieving the server response
+        /// </summary>
+        /// <param name="exceptionLocalVar"></param>
+        /// <param name="pathFormatLocalVar"></param>
+        /// <param name="pathLocalVar"></param>
+        private void OnErrorGetBalanceDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar)
+        {
+            bool suppressDefaultLogLocalVar = false;
+            OnErrorGetBalance(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar);
+            if (!suppressDefaultLogLocalVar)
+                Logger.LogError(exceptionLocalVar, "An error occurred while sending the request to the server.");
+        }
+
+        /// <summary>
+        /// A partial method that gives developers a way to provide customized exception handling
+        /// </summary>
+        /// <param name="suppressDefaultLogLocalVar"></param>
+        /// <param name="exceptionLocalVar"></param>
+        /// <param name="pathFormatLocalVar"></param>
+        /// <param name="pathLocalVar"></param>
+        partial void OnErrorGetBalance(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar);
 
         /// <summary>
         /// Get SMS Balance 
         /// </summary>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBalanceApiResponse"/>&gt;</returns>
-        public async Task<IGetBalanceApiResponse?> GetBalanceOrDefaultAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IGetBalanceApiResponse?> GetBalanceOrDefaultAsync(System.Threading.CancellationToken cancellationToken = default)
         {
             try
             {
-                return await GetBalanceAsync(body, cancellationToken).ConfigureAwait(false);
+                return await GetBalanceAsync(cancellationToken).ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -406,17 +707,14 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// Get SMS Balance 
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBalanceApiResponse"/>&gt;</returns>
-        public async Task<IGetBalanceApiResponse> GetBalanceAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IGetBalanceApiResponse> GetBalanceAsync(System.Threading.CancellationToken cancellationToken = default)
         {
             UriBuilder uriBuilderLocalVar = new UriBuilder();
 
             try
             {
-                FormatGetBalance(ref body);
-
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
                     uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
@@ -426,26 +724,16 @@ namespace Dev.ABGEO.UBill.SDK.Api
                         ? "/sms/balance"
                         : string.Concat(HttpClient.BaseAddress.AbsolutePath, "/sms/balance");
 
-                    if (body.IsSet)
-                        httpRequestMessageLocalVar.Content = (body.Value as object) is System.IO.Stream stream
-                            ? httpRequestMessageLocalVar.Content = new StreamContent(stream)
-                            : httpRequestMessageLocalVar.Content = new StringContent(JsonSerializer.Serialize(body.Value, _jsonSerializerOptions));
+                    System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
                     ApiKeyToken apiKeyTokenLocalVar1 = (ApiKeyToken) await ApiKeyProvider.GetAsync("key", cancellationToken).ConfigureAwait(false);
                     tokenBaseLocalVars.Add(apiKeyTokenLocalVar1);
-                    apiKeyTokenLocalVar1.UseInHeader(httpRequestMessageLocalVar);
 
+                    apiKeyTokenLocalVar1.UseInQuery(httpRequestMessageLocalVar, uriBuilderLocalVar, parseQueryStringLocalVar);
+
+                    uriBuilderLocalVar.Query = parseQueryStringLocalVar.ToString();
                     httpRequestMessageLocalVar.RequestUri = uriBuilderLocalVar.Uri;
-
-                    string[] contentTypes = new string[] {
-                        "application/json"
-                    };
-
-                    string? contentTypeLocalVar = ClientUtils.SelectHeaderContentType(contentTypes);
-
-                    if (contentTypeLocalVar != null && httpRequestMessageLocalVar.Content != null)
-                        httpRequestMessageLocalVar.Content.Headers.ContentType = new MediaTypeHeaderValue(contentTypeLocalVar);
 
                     string[] acceptLocalVars = new string[] {
                         "application/json",
@@ -469,7 +757,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
 
                         GetBalanceApiResponse apiResponseLocalVar = new(apiResponseLoggerLocalVar, httpRequestMessageLocalVar, httpResponseMessageLocalVar, responseContentLocalVar, "/sms/balance", requestedAtLocalVar, _jsonSerializerOptions);
 
-                        AfterGetBalanceDefaultImplementation(apiResponseLocalVar, body);
+                        AfterGetBalanceDefaultImplementation(apiResponseLocalVar);
 
                         Events.ExecuteOnGetBalance(apiResponseLocalVar);
 
@@ -483,7 +771,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
             }
             catch(Exception e)
             {
-                OnErrorGetBalanceDefaultImplementation(e, "/sms/balance", uriBuilderLocalVar.Path, body);
+                OnErrorGetBalanceDefaultImplementation(e, "/sms/balance", uriBuilderLocalVar.Path);
                 Events.ExecuteOnErrorGetBalance(e);
                 throw;
             }
@@ -572,17 +860,14 @@ namespace Dev.ABGEO.UBill.SDK.Api
             partial void OnDeserializationError(ref bool suppressDefaultLog, Exception exception, HttpStatusCode httpStatusCode);
         }
 
-        partial void FormatGetBrandNames(ref Option<Object?> body);
-
         /// <summary>
         /// Processes the server response
         /// </summary>
         /// <param name="apiResponseLocalVar"></param>
-        /// <param name="body"></param>
-        private void AfterGetBrandNamesDefaultImplementation(IGetBrandNamesApiResponse apiResponseLocalVar, Option<Object?> body)
+        private void AfterGetBrandNamesDefaultImplementation(IGetBrandNamesApiResponse apiResponseLocalVar)
         {
             bool suppressDefaultLog = false;
-            AfterGetBrandNames(ref suppressDefaultLog, apiResponseLocalVar, body);
+            AfterGetBrandNames(ref suppressDefaultLog, apiResponseLocalVar);
             if (!suppressDefaultLog)
                 Logger.LogInformation("{0,-9} | {1} | {3}", (apiResponseLocalVar.DownloadedAt - apiResponseLocalVar.RequestedAt).TotalSeconds, apiResponseLocalVar.StatusCode, apiResponseLocalVar.Path);
         }
@@ -592,8 +877,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// </summary>
         /// <param name="suppressDefaultLog"></param>
         /// <param name="apiResponseLocalVar"></param>
-        /// <param name="body"></param>
-        partial void AfterGetBrandNames(ref bool suppressDefaultLog, IGetBrandNamesApiResponse apiResponseLocalVar, Option<Object?> body);
+        partial void AfterGetBrandNames(ref bool suppressDefaultLog, IGetBrandNamesApiResponse apiResponseLocalVar);
 
         /// <summary>
         /// Logs exceptions that occur while retrieving the server response
@@ -601,11 +885,10 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="exceptionLocalVar"></param>
         /// <param name="pathFormatLocalVar"></param>
         /// <param name="pathLocalVar"></param>
-        /// <param name="body"></param>
-        private void OnErrorGetBrandNamesDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, Option<Object?> body)
+        private void OnErrorGetBrandNamesDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar)
         {
             bool suppressDefaultLogLocalVar = false;
-            OnErrorGetBrandNames(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, body);
+            OnErrorGetBrandNames(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar);
             if (!suppressDefaultLogLocalVar)
                 Logger.LogError(exceptionLocalVar, "An error occurred while sending the request to the server.");
         }
@@ -617,20 +900,18 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="exceptionLocalVar"></param>
         /// <param name="pathFormatLocalVar"></param>
         /// <param name="pathLocalVar"></param>
-        /// <param name="body"></param>
-        partial void OnErrorGetBrandNames(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, Option<Object?> body);
+        partial void OnErrorGetBrandNames(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar);
 
         /// <summary>
-        /// Get All BrandNames 
+        /// Get All Brand Names 
         /// </summary>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBrandNamesApiResponse"/>&gt;</returns>
-        public async Task<IGetBrandNamesApiResponse?> GetBrandNamesOrDefaultAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IGetBrandNamesApiResponse?> GetBrandNamesOrDefaultAsync(System.Threading.CancellationToken cancellationToken = default)
         {
             try
             {
-                return await GetBrandNamesAsync(body, cancellationToken).ConfigureAwait(false);
+                return await GetBrandNamesAsync(cancellationToken).ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -639,20 +920,17 @@ namespace Dev.ABGEO.UBill.SDK.Api
         }
 
         /// <summary>
-        /// Get All BrandNames 
+        /// Get All Brand Names 
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetBrandNamesApiResponse"/>&gt;</returns>
-        public async Task<IGetBrandNamesApiResponse> GetBrandNamesAsync(Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IGetBrandNamesApiResponse> GetBrandNamesAsync(System.Threading.CancellationToken cancellationToken = default)
         {
             UriBuilder uriBuilderLocalVar = new UriBuilder();
 
             try
             {
-                FormatGetBrandNames(ref body);
-
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
                     uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
@@ -662,26 +940,16 @@ namespace Dev.ABGEO.UBill.SDK.Api
                         ? "/sms/brandNames"
                         : string.Concat(HttpClient.BaseAddress.AbsolutePath, "/sms/brandNames");
 
-                    if (body.IsSet)
-                        httpRequestMessageLocalVar.Content = (body.Value as object) is System.IO.Stream stream
-                            ? httpRequestMessageLocalVar.Content = new StreamContent(stream)
-                            : httpRequestMessageLocalVar.Content = new StringContent(JsonSerializer.Serialize(body.Value, _jsonSerializerOptions));
+                    System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
                     ApiKeyToken apiKeyTokenLocalVar1 = (ApiKeyToken) await ApiKeyProvider.GetAsync("key", cancellationToken).ConfigureAwait(false);
                     tokenBaseLocalVars.Add(apiKeyTokenLocalVar1);
-                    apiKeyTokenLocalVar1.UseInHeader(httpRequestMessageLocalVar);
 
+                    apiKeyTokenLocalVar1.UseInQuery(httpRequestMessageLocalVar, uriBuilderLocalVar, parseQueryStringLocalVar);
+
+                    uriBuilderLocalVar.Query = parseQueryStringLocalVar.ToString();
                     httpRequestMessageLocalVar.RequestUri = uriBuilderLocalVar.Uri;
-
-                    string[] contentTypes = new string[] {
-                        "application/json"
-                    };
-
-                    string? contentTypeLocalVar = ClientUtils.SelectHeaderContentType(contentTypes);
-
-                    if (contentTypeLocalVar != null && httpRequestMessageLocalVar.Content != null)
-                        httpRequestMessageLocalVar.Content.Headers.ContentType = new MediaTypeHeaderValue(contentTypeLocalVar);
 
                     string[] acceptLocalVars = new string[] {
                         "application/json",
@@ -705,7 +973,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
 
                         GetBrandNamesApiResponse apiResponseLocalVar = new(apiResponseLoggerLocalVar, httpRequestMessageLocalVar, httpResponseMessageLocalVar, responseContentLocalVar, "/sms/brandNames", requestedAtLocalVar, _jsonSerializerOptions);
 
-                        AfterGetBrandNamesDefaultImplementation(apiResponseLocalVar, body);
+                        AfterGetBrandNamesDefaultImplementation(apiResponseLocalVar);
 
                         Events.ExecuteOnGetBrandNames(apiResponseLocalVar);
 
@@ -719,7 +987,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
             }
             catch(Exception e)
             {
-                OnErrorGetBrandNamesDefaultImplementation(e, "/sms/brandNames", uriBuilderLocalVar.Path, body);
+                OnErrorGetBrandNamesDefaultImplementation(e, "/sms/brandNames", uriBuilderLocalVar.Path);
                 Events.ExecuteOnErrorGetBrandNames(e);
                 throw;
             }
@@ -808,18 +1076,17 @@ namespace Dev.ABGEO.UBill.SDK.Api
             partial void OnDeserializationError(ref bool suppressDefaultLog, Exception exception, HttpStatusCode httpStatusCode);
         }
 
-        partial void FormatGetDeliveryReport(ref long smsID, ref Option<Object?> body);
+        partial void FormatGetDeliveryReport(ref long smsID);
 
         /// <summary>
         /// Processes the server response
         /// </summary>
         /// <param name="apiResponseLocalVar"></param>
         /// <param name="smsID"></param>
-        /// <param name="body"></param>
-        private void AfterGetDeliveryReportDefaultImplementation(IGetDeliveryReportApiResponse apiResponseLocalVar, long smsID, Option<Object?> body)
+        private void AfterGetDeliveryReportDefaultImplementation(IGetDeliveryReportApiResponse apiResponseLocalVar, long smsID)
         {
             bool suppressDefaultLog = false;
-            AfterGetDeliveryReport(ref suppressDefaultLog, apiResponseLocalVar, smsID, body);
+            AfterGetDeliveryReport(ref suppressDefaultLog, apiResponseLocalVar, smsID);
             if (!suppressDefaultLog)
                 Logger.LogInformation("{0,-9} | {1} | {3}", (apiResponseLocalVar.DownloadedAt - apiResponseLocalVar.RequestedAt).TotalSeconds, apiResponseLocalVar.StatusCode, apiResponseLocalVar.Path);
         }
@@ -830,8 +1097,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="suppressDefaultLog"></param>
         /// <param name="apiResponseLocalVar"></param>
         /// <param name="smsID"></param>
-        /// <param name="body"></param>
-        partial void AfterGetDeliveryReport(ref bool suppressDefaultLog, IGetDeliveryReportApiResponse apiResponseLocalVar, long smsID, Option<Object?> body);
+        partial void AfterGetDeliveryReport(ref bool suppressDefaultLog, IGetDeliveryReportApiResponse apiResponseLocalVar, long smsID);
 
         /// <summary>
         /// Logs exceptions that occur while retrieving the server response
@@ -840,11 +1106,10 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="pathFormatLocalVar"></param>
         /// <param name="pathLocalVar"></param>
         /// <param name="smsID"></param>
-        /// <param name="body"></param>
-        private void OnErrorGetDeliveryReportDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, long smsID, Option<Object?> body)
+        private void OnErrorGetDeliveryReportDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, long smsID)
         {
             bool suppressDefaultLogLocalVar = false;
-            OnErrorGetDeliveryReport(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, smsID, body);
+            OnErrorGetDeliveryReport(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, smsID);
             if (!suppressDefaultLogLocalVar)
                 Logger.LogError(exceptionLocalVar, "An error occurred while sending the request to the server.");
         }
@@ -857,21 +1122,19 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <param name="pathFormatLocalVar"></param>
         /// <param name="pathLocalVar"></param>
         /// <param name="smsID"></param>
-        /// <param name="body"></param>
-        partial void OnErrorGetDeliveryReport(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, long smsID, Option<Object?> body);
+        partial void OnErrorGetDeliveryReport(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, long smsID);
 
         /// <summary>
         /// Get Delivery Report 
         /// </summary>
-        /// <param name="smsID">ID of SMS to get report for</param>
-        /// <param name="body"> (optional)</param>
+        /// <param name="smsID">Unique identifier of the SMS</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetDeliveryReportApiResponse"/>&gt;</returns>
-        public async Task<IGetDeliveryReportApiResponse?> GetDeliveryReportOrDefaultAsync(long smsID, Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IGetDeliveryReportApiResponse?> GetDeliveryReportOrDefaultAsync(long smsID, System.Threading.CancellationToken cancellationToken = default)
         {
             try
             {
-                return await GetDeliveryReportAsync(smsID, body, cancellationToken).ConfigureAwait(false);
+                return await GetDeliveryReportAsync(smsID, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -883,17 +1146,16 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// Get Delivery Report 
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="smsID">ID of SMS to get report for</param>
-        /// <param name="body"> (optional)</param>
+        /// <param name="smsID">Unique identifier of the SMS</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IGetDeliveryReportApiResponse"/>&gt;</returns>
-        public async Task<IGetDeliveryReportApiResponse> GetDeliveryReportAsync(long smsID, Option<Object?> body = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IGetDeliveryReportApiResponse> GetDeliveryReportAsync(long smsID, System.Threading.CancellationToken cancellationToken = default)
         {
             UriBuilder uriBuilderLocalVar = new UriBuilder();
 
             try
             {
-                FormatGetDeliveryReport(ref smsID, ref body);
+                FormatGetDeliveryReport(ref smsID);
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
@@ -905,26 +1167,16 @@ namespace Dev.ABGEO.UBill.SDK.Api
                         : string.Concat(HttpClient.BaseAddress.AbsolutePath, "/sms/report/{smsID}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BsmsID%7D", Uri.EscapeDataString(smsID.ToString()));
 
-                    if (body.IsSet)
-                        httpRequestMessageLocalVar.Content = (body.Value as object) is System.IO.Stream stream
-                            ? httpRequestMessageLocalVar.Content = new StreamContent(stream)
-                            : httpRequestMessageLocalVar.Content = new StringContent(JsonSerializer.Serialize(body.Value, _jsonSerializerOptions));
+                    System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
                     ApiKeyToken apiKeyTokenLocalVar1 = (ApiKeyToken) await ApiKeyProvider.GetAsync("key", cancellationToken).ConfigureAwait(false);
                     tokenBaseLocalVars.Add(apiKeyTokenLocalVar1);
-                    apiKeyTokenLocalVar1.UseInHeader(httpRequestMessageLocalVar);
 
+                    apiKeyTokenLocalVar1.UseInQuery(httpRequestMessageLocalVar, uriBuilderLocalVar, parseQueryStringLocalVar);
+
+                    uriBuilderLocalVar.Query = parseQueryStringLocalVar.ToString();
                     httpRequestMessageLocalVar.RequestUri = uriBuilderLocalVar.Uri;
-
-                    string[] contentTypes = new string[] {
-                        "application/json"
-                    };
-
-                    string? contentTypeLocalVar = ClientUtils.SelectHeaderContentType(contentTypes);
-
-                    if (contentTypeLocalVar != null && httpRequestMessageLocalVar.Content != null)
-                        httpRequestMessageLocalVar.Content.Headers.ContentType = new MediaTypeHeaderValue(contentTypeLocalVar);
 
                     string[] acceptLocalVars = new string[] {
                         "application/json",
@@ -948,7 +1200,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
 
                         GetDeliveryReportApiResponse apiResponseLocalVar = new(apiResponseLoggerLocalVar, httpRequestMessageLocalVar, httpResponseMessageLocalVar, responseContentLocalVar, "/sms/report/{smsID}", requestedAtLocalVar, _jsonSerializerOptions);
 
-                        AfterGetDeliveryReportDefaultImplementation(apiResponseLocalVar, smsID, body);
+                        AfterGetDeliveryReportDefaultImplementation(apiResponseLocalVar, smsID);
 
                         Events.ExecuteOnGetDeliveryReport(apiResponseLocalVar);
 
@@ -962,7 +1214,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
             }
             catch(Exception e)
             {
-                OnErrorGetDeliveryReportDefaultImplementation(e, "/sms/report/{smsID}", uriBuilderLocalVar.Path, smsID, body);
+                OnErrorGetDeliveryReportDefaultImplementation(e, "/sms/report/{smsID}", uriBuilderLocalVar.Path, smsID);
                 Events.ExecuteOnErrorGetDeliveryReport(e);
                 throw;
             }
@@ -1113,7 +1365,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// <summary>
         /// Send SMS 
         /// </summary>
-        /// <param name="sMSPayload">Pet object that needs to be added to the store (optional)</param>
+        /// <param name="sMSPayload">SMS payload for sending messages (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="ISendSMSApiResponse"/>&gt;</returns>
         public async Task<ISendSMSApiResponse?> SendSMSOrDefaultAsync(Option<SMSPayload> sMSPayload = default, System.Threading.CancellationToken cancellationToken = default)
@@ -1132,7 +1384,7 @@ namespace Dev.ABGEO.UBill.SDK.Api
         /// Send SMS 
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sMSPayload">Pet object that needs to be added to the store (optional)</param>
+        /// <param name="sMSPayload">SMS payload for sending messages (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="ISendSMSApiResponse"/>&gt;</returns>
         public async Task<ISendSMSApiResponse> SendSMSAsync(Option<SMSPayload> sMSPayload = default, System.Threading.CancellationToken cancellationToken = default)
@@ -1154,6 +1406,8 @@ namespace Dev.ABGEO.UBill.SDK.Api
                         ? "/sms/send"
                         : string.Concat(HttpClient.BaseAddress.AbsolutePath, "/sms/send");
 
+                    System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
+
                     if (sMSPayload.IsSet)
                         httpRequestMessageLocalVar.Content = (sMSPayload.Value as object) is System.IO.Stream stream
                             ? httpRequestMessageLocalVar.Content = new StreamContent(stream)
@@ -1162,8 +1416,10 @@ namespace Dev.ABGEO.UBill.SDK.Api
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
                     ApiKeyToken apiKeyTokenLocalVar1 = (ApiKeyToken) await ApiKeyProvider.GetAsync("key", cancellationToken).ConfigureAwait(false);
                     tokenBaseLocalVars.Add(apiKeyTokenLocalVar1);
-                    apiKeyTokenLocalVar1.UseInHeader(httpRequestMessageLocalVar);
 
+                    apiKeyTokenLocalVar1.UseInQuery(httpRequestMessageLocalVar, uriBuilderLocalVar, parseQueryStringLocalVar);
+
+                    uriBuilderLocalVar.Query = parseQueryStringLocalVar.ToString();
                     httpRequestMessageLocalVar.RequestUri = uriBuilderLocalVar.Uri;
 
                     string[] contentTypes = new string[] {

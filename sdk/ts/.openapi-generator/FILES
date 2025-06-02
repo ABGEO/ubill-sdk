@@ -6,8 +6,11 @@ api/sms-api.ts
 base.ts
 common.ts
 configuration.ts
+docs/BaseResponse.md
 docs/BrandName.md
 docs/BrandNamesResponse.md
+docs/CreateBrandNamePayload.md
+docs/CreateBrandNameResponse.md
 docs/DeliveryReportItem.md
 docs/DeliveryReportResponse.md
 docs/SMSBalanceResponse.md
@@ -15,8 +18,11 @@ docs/SMSPayload.md
 docs/SendSMSResponse.md
 docs/SmsApi.md
 index.ts
+model/base-response.ts
 model/brand-name.ts
 model/brand-names-response.ts
+model/create-brand-name-payload.ts
+model/create-brand-name-response.ts
 model/delivery-report-item.ts
 model/delivery-report-response.ts
 model/index.ts

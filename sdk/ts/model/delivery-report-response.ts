@@ -15,25 +15,15 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import type { BaseResponse } from './base-response';
+// May contain unused imports in some cases
+// @ts-ignore
 import type { DeliveryReportItem } from './delivery-report-item';
 
 /**
- * 
+ * @type DeliveryReportResponse
  * @export
- * @interface DeliveryReportResponse
  */
-export interface DeliveryReportResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof DeliveryReportResponse
-     */
-    'statusID': number;
-    /**
-     * 
-     * @type {Array<DeliveryReportItem>}
-     * @memberof DeliveryReportResponse
-     */
-    'result': Array<DeliveryReportItem>;
-}
+export type DeliveryReportResponse = BaseResponse;
+
 

@@ -53,6 +53,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Gets or Sets BrandID
         /// </summary>
+        /* <example>1</example> */
         [JsonPropertyName("brandID")]
         public long BrandID { get; set; }
 
@@ -65,6 +66,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Gets or Sets Text
         /// </summary>
+        /* <example>Hello</example> */
         [JsonPropertyName("text")]
         public string Text { get; set; }
 

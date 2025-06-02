@@ -22,8 +22,11 @@ var _ MappedNullable = &DeliveryReportResponse{}
 
 // DeliveryReportResponse struct for DeliveryReportResponse
 type DeliveryReportResponse struct {
-	StatusID int64                `json:"statusID"`
-	Result   []DeliveryReportItem `json:"result"`
+	// Response status code
+	StatusID int64 `json:"statusID"`
+	// Human-readable response message
+	Message *string              `json:"message,omitempty"`
+	Result  []DeliveryReportItem `json:"result,omitempty"`
 }
 
 type _DeliveryReportResponse DeliveryReportResponse
@@ -32,10 +35,9 @@ type _DeliveryReportResponse DeliveryReportResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeliveryReportResponse(statusID int64, result []DeliveryReportItem) *DeliveryReportResponse {
+func NewDeliveryReportResponse(statusID int64) *DeliveryReportResponse {
 	this := DeliveryReportResponse{}
 	this.StatusID = statusID
-	this.Result = result
 	return &this
 }
 
@@ -71,26 +73,66 @@ func (o *DeliveryReportResponse) SetStatusID(v int64) {
 	o.StatusID = v
 }
 
-// GetResult returns the Result field value
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *DeliveryReportResponse) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeliveryReportResponse) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *DeliveryReportResponse) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *DeliveryReportResponse) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetResult returns the Result field value if set, zero value otherwise.
 func (o *DeliveryReportResponse) GetResult() []DeliveryReportItem {
-	if o == nil {
+	if o == nil || IsNil(o.Result) {
 		var ret []DeliveryReportItem
 		return ret
 	}
-
 	return o.Result
 }
 
-// GetResultOk returns a tuple with the Result field value
+// GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryReportResponse) GetResultOk() ([]DeliveryReportItem, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Result) {
 		return nil, false
 	}
 	return o.Result, true
 }
 
-// SetResult sets field value
+// HasResult returns a boolean if a field has been set.
+func (o *DeliveryReportResponse) HasResult() bool {
+	if o != nil && !IsNil(o.Result) {
+		return true
+	}
+
+	return false
+}
+
+// SetResult gets a reference to the given []DeliveryReportItem and assigns it to the Result field.
 func (o *DeliveryReportResponse) SetResult(v []DeliveryReportItem) {
 	o.Result = v
 }
@@ -106,7 +148,12 @@ func (o DeliveryReportResponse) MarshalJSON() ([]byte, error) {
 func (o DeliveryReportResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["statusID"] = o.StatusID
-	toSerialize["result"] = o.Result
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Result) {
+		toSerialize["result"] = o.Result
+	}
 	return toSerialize, nil
 }
 
@@ -116,7 +163,6 @@ func (o *DeliveryReportResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"statusID",
-		"result",
 	}
 
 	allProperties := make(map[string]interface{})

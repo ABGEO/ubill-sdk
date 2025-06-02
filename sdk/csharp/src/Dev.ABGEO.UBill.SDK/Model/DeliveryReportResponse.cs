@@ -34,29 +34,55 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeliveryReportResponse" /> class.
         /// </summary>
-        /// <param name="statusID">statusID</param>
+        /// <param name="statusID">Response status code</param>
+        /// <param name="message">Human-readable response message</param>
         /// <param name="result">result</param>
         [JsonConstructor]
-        public DeliveryReportResponse(long statusID, List<DeliveryReportItem> result)
+        public DeliveryReportResponse(long statusID, Option<string?> message = default, Option<List<DeliveryReportItem>?> result = default)
         {
             StatusID = statusID;
-            Result = result;
+            MessageOption = message;
+            ResultOption = result;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Gets or Sets StatusID
+        /// Response status code
         /// </summary>
+        /// <value>Response status code</value>
+        /* <example>0</example> */
         [JsonPropertyName("statusID")]
         public long StatusID { get; set; }
+
+        /// <summary>
+        /// Used to track the state of Message
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<string?> MessageOption { get; private set; }
+
+        /// <summary>
+        /// Human-readable response message
+        /// </summary>
+        /// <value>Human-readable response message</value>
+        /* <example>Success</example> */
+        [JsonPropertyName("message")]
+        public string? Message { get { return this.MessageOption; } set { this.MessageOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of Result
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<DeliveryReportItem>?> ResultOption { get; private set; }
 
         /// <summary>
         /// Gets or Sets Result
         /// </summary>
         [JsonPropertyName("result")]
-        public List<DeliveryReportItem> Result { get; set; }
+        public List<DeliveryReportItem>? Result { get { return this.ResultOption; } set { this.ResultOption = new(value); } }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -67,6 +93,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class DeliveryReportResponse {\n");
             sb.Append("  StatusID: ").Append(StatusID).Append("\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -106,6 +133,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<long?> statusID = default;
+            Option<string?> message = default;
             Option<List<DeliveryReportItem>?> result = default;
 
             while (utf8JsonReader.Read())
@@ -126,6 +154,9 @@ namespace Dev.ABGEO.UBill.SDK.Model
                         case "statusID":
                             statusID = new Option<long?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (long?)null : utf8JsonReader.GetInt64());
                             break;
+                        case "message":
+                            message = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
                         case "result":
                             result = new Option<List<DeliveryReportItem>?>(JsonSerializer.Deserialize<List<DeliveryReportItem>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
@@ -138,16 +169,16 @@ namespace Dev.ABGEO.UBill.SDK.Model
             if (!statusID.IsSet)
                 throw new ArgumentException("Property is required for class DeliveryReportResponse.", nameof(statusID));
 
-            if (!result.IsSet)
-                throw new ArgumentException("Property is required for class DeliveryReportResponse.", nameof(result));
-
             if (statusID.IsSet && statusID.Value == null)
                 throw new ArgumentNullException(nameof(statusID), "Property is not nullable for class DeliveryReportResponse.");
+
+            if (message.IsSet && message.Value == null)
+                throw new ArgumentNullException(nameof(message), "Property is not nullable for class DeliveryReportResponse.");
 
             if (result.IsSet && result.Value == null)
                 throw new ArgumentNullException(nameof(result), "Property is not nullable for class DeliveryReportResponse.");
 
-            return new DeliveryReportResponse(statusID.Value!.Value!, result.Value!);
+            return new DeliveryReportResponse(statusID.Value!.Value!, message, result);
         }
 
         /// <summary>
@@ -174,13 +205,22 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, DeliveryReportResponse deliveryReportResponse, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (deliveryReportResponse.Result == null)
+            if (deliveryReportResponse.MessageOption.IsSet && deliveryReportResponse.Message == null)
+                throw new ArgumentNullException(nameof(deliveryReportResponse.Message), "Property is required for class DeliveryReportResponse.");
+
+            if (deliveryReportResponse.ResultOption.IsSet && deliveryReportResponse.Result == null)
                 throw new ArgumentNullException(nameof(deliveryReportResponse.Result), "Property is required for class DeliveryReportResponse.");
 
             writer.WriteNumber("statusID", deliveryReportResponse.StatusID);
 
-            writer.WritePropertyName("result");
-            JsonSerializer.Serialize(writer, deliveryReportResponse.Result, jsonSerializerOptions);
+            if (deliveryReportResponse.MessageOption.IsSet)
+                writer.WriteString("message", deliveryReportResponse.Message);
+
+            if (deliveryReportResponse.ResultOption.IsSet)
+            {
+                writer.WritePropertyName("result");
+                JsonSerializer.Serialize(writer, deliveryReportResponse.Result, jsonSerializerOptions);
+            }
         }
     }
 }

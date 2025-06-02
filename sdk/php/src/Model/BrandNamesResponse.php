@@ -59,6 +59,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPITypes = [
         'statusID' => 'int',
+        'message' => 'string',
         'brands' => '\ABGEO\UBill\Sdk\Model\BrandName[]'
     ];
 
@@ -71,6 +72,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'statusID' => 'int64',
+        'message' => null,
         'brands' => null
     ];
 
@@ -81,6 +83,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static array $openAPINullables = [
         'statusID' => false,
+        'message' => false,
         'brands' => false
     ];
 
@@ -171,6 +174,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $attributeMap = [
         'statusID' => 'statusID',
+        'message' => 'message',
         'brands' => 'brands'
     ];
 
@@ -181,6 +185,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $setters = [
         'statusID' => 'setStatusID',
+        'message' => 'setMessage',
         'brands' => 'setBrands'
     ];
 
@@ -191,6 +196,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $getters = [
         'statusID' => 'getStatusID',
+        'message' => 'getMessage',
         'brands' => 'getBrands'
     ];
 
@@ -252,6 +258,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function __construct(?array $data = null)
     {
         $this->setIfExists('statusID', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('brands', $data ?? [], null);
     }
 
@@ -285,6 +292,9 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['statusID'] === null) {
             $invalidProperties[] = "'statusID' can't be null";
         }
+        if ($this->container['brands'] === null) {
+            $invalidProperties[] = "'brands' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -313,7 +323,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets statusID
      *
-     * @param int $statusID statusID
+     * @param int $statusID Response status code
      *
      * @return self
      */
@@ -328,9 +338,36 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     }
 
     /**
+     * Gets message
+     *
+     * @return string|null
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string|null $message Human-readable response message
+     *
+     * @return self
+     */
+    public function setMessage($message)
+    {
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        }
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
      * Gets brands
      *
-     * @return \ABGEO\UBill\Sdk\Model\BrandName[]|null
+     * @return \ABGEO\UBill\Sdk\Model\BrandName[]
      */
     public function getBrands()
     {
@@ -340,7 +377,7 @@ class BrandNamesResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets brands
      *
-     * @param \ABGEO\UBill\Sdk\Model\BrandName[]|null $brands brands
+     * @param \ABGEO\UBill\Sdk\Model\BrandName[] $brands List of available brand names
      *
      * @return self
      */

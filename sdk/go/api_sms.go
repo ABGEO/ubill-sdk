@@ -23,6 +23,18 @@ import (
 type SmsAPI interface {
 
 	/*
+		CreateBrandName Create Brand Name
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateBrandNameRequest
+	*/
+	CreateBrandName(ctx context.Context) ApiCreateBrandNameRequest
+
+	// CreateBrandNameExecute executes the request
+	//  @return CreateBrandNameResponse
+	CreateBrandNameExecute(r ApiCreateBrandNameRequest) (*CreateBrandNameResponse, *http.Response, error)
+
+	/*
 		GetBalance Get SMS Balance
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -35,7 +47,7 @@ type SmsAPI interface {
 	GetBalanceExecute(r ApiGetBalanceRequest) (*SMSBalanceResponse, *http.Response, error)
 
 	/*
-		GetBrandNames Get All BrandNames
+		GetBrandNames Get All Brand Names
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiGetBrandNamesRequest
@@ -50,7 +62,7 @@ type SmsAPI interface {
 		GetDeliveryReport Get Delivery Report
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param smsID ID of SMS to get report for
+		@param smsID Unique identifier of the SMS
 		@return ApiGetDeliveryReportRequest
 	*/
 	GetDeliveryReport(ctx context.Context, smsID int64) ApiGetDeliveryReportRequest
@@ -75,15 +87,130 @@ type SmsAPI interface {
 // SmsAPIService SmsAPI service
 type SmsAPIService service
 
+type ApiCreateBrandNameRequest struct {
+	ctx                    context.Context
+	ApiService             SmsAPI
+	createBrandNamePayload *CreateBrandNamePayload
+}
+
+// Brand Name payload to create
+func (r ApiCreateBrandNameRequest) CreateBrandNamePayload(createBrandNamePayload CreateBrandNamePayload) ApiCreateBrandNameRequest {
+	r.createBrandNamePayload = &createBrandNamePayload
+	return r
+}
+
+func (r ApiCreateBrandNameRequest) Execute() (*CreateBrandNameResponse, *http.Response, error) {
+	return r.ApiService.CreateBrandNameExecute(r)
+}
+
+/*
+CreateBrandName Create Brand Name
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateBrandNameRequest
+*/
+func (a *SmsAPIService) CreateBrandName(ctx context.Context) ApiCreateBrandNameRequest {
+	return ApiCreateBrandNameRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CreateBrandNameResponse
+func (a *SmsAPIService) CreateBrandNameExecute(r ApiCreateBrandNameRequest) (*CreateBrandNameResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateBrandNameResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SmsAPIService.CreateBrandName")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sms/brandNameCreate"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/plain"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createBrandNamePayload
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["api_key"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarQueryParams.Add("key", key)
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetBalanceRequest struct {
 	ctx        context.Context
 	ApiService SmsAPI
-	body       *interface{}
-}
-
-func (r ApiGetBalanceRequest) Body(body interface{}) ApiGetBalanceRequest {
-	r.body = &body
-	return r
 }
 
 func (r ApiGetBalanceRequest) Execute() (*SMSBalanceResponse, *http.Response, error) {
@@ -126,7 +253,7 @@ func (a *SmsAPIService) GetBalanceExecute(r ApiGetBalanceRequest) (*SMSBalanceRe
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -142,8 +269,6 @@ func (a *SmsAPIService) GetBalanceExecute(r ApiGetBalanceRequest) (*SMSBalanceRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -154,7 +279,7 @@ func (a *SmsAPIService) GetBalanceExecute(r ApiGetBalanceRequest) (*SMSBalanceRe
 				} else {
 					key = apiKey.Key
 				}
-				localVarHeaderParams["key"] = key
+				localVarQueryParams.Add("key", key)
 			}
 		}
 	}
@@ -198,12 +323,6 @@ func (a *SmsAPIService) GetBalanceExecute(r ApiGetBalanceRequest) (*SMSBalanceRe
 type ApiGetBrandNamesRequest struct {
 	ctx        context.Context
 	ApiService SmsAPI
-	body       *interface{}
-}
-
-func (r ApiGetBrandNamesRequest) Body(body interface{}) ApiGetBrandNamesRequest {
-	r.body = &body
-	return r
 }
 
 func (r ApiGetBrandNamesRequest) Execute() (*BrandNamesResponse, *http.Response, error) {
@@ -211,7 +330,7 @@ func (r ApiGetBrandNamesRequest) Execute() (*BrandNamesResponse, *http.Response,
 }
 
 /*
-GetBrandNames Get All BrandNames
+GetBrandNames Get All Brand Names
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetBrandNamesRequest
@@ -246,7 +365,7 @@ func (a *SmsAPIService) GetBrandNamesExecute(r ApiGetBrandNamesRequest) (*BrandN
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -262,8 +381,6 @@ func (a *SmsAPIService) GetBrandNamesExecute(r ApiGetBrandNamesRequest) (*BrandN
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -274,7 +391,7 @@ func (a *SmsAPIService) GetBrandNamesExecute(r ApiGetBrandNamesRequest) (*BrandN
 				} else {
 					key = apiKey.Key
 				}
-				localVarHeaderParams["key"] = key
+				localVarQueryParams.Add("key", key)
 			}
 		}
 	}
@@ -319,12 +436,6 @@ type ApiGetDeliveryReportRequest struct {
 	ctx        context.Context
 	ApiService SmsAPI
 	smsID      int64
-	body       *interface{}
-}
-
-func (r ApiGetDeliveryReportRequest) Body(body interface{}) ApiGetDeliveryReportRequest {
-	r.body = &body
-	return r
 }
 
 func (r ApiGetDeliveryReportRequest) Execute() (*DeliveryReportResponse, *http.Response, error) {
@@ -335,7 +446,7 @@ func (r ApiGetDeliveryReportRequest) Execute() (*DeliveryReportResponse, *http.R
 GetDeliveryReport Get Delivery Report
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param smsID ID of SMS to get report for
+	@param smsID Unique identifier of the SMS
 	@return ApiGetDeliveryReportRequest
 */
 func (a *SmsAPIService) GetDeliveryReport(ctx context.Context, smsID int64) ApiGetDeliveryReportRequest {
@@ -370,7 +481,7 @@ func (a *SmsAPIService) GetDeliveryReportExecute(r ApiGetDeliveryReportRequest) 
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -386,8 +497,6 @@ func (a *SmsAPIService) GetDeliveryReportExecute(r ApiGetDeliveryReportRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -398,7 +507,7 @@ func (a *SmsAPIService) GetDeliveryReportExecute(r ApiGetDeliveryReportRequest) 
 				} else {
 					key = apiKey.Key
 				}
-				localVarHeaderParams["key"] = key
+				localVarQueryParams.Add("key", key)
 			}
 		}
 	}
@@ -445,7 +554,7 @@ type ApiSendSMSRequest struct {
 	sMSPayload *SMSPayload
 }
 
-// Pet object that needs to be added to the store
+// SMS payload for sending messages
 func (r ApiSendSMSRequest) SMSPayload(sMSPayload SMSPayload) ApiSendSMSRequest {
 	r.sMSPayload = &sMSPayload
 	return r
@@ -519,7 +628,7 @@ func (a *SmsAPIService) SendSMSExecute(r ApiSendSMSRequest) (*SendSMSResponse, *
 				} else {
 					key = apiKey.Key
 				}
-				localVarHeaderParams["key"] = key
+				localVarQueryParams.Add("key", key)
 			}
 		}
 	}

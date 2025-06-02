@@ -75,6 +75,9 @@ class SmsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'createBrandName' => [
+            'application/json',
+        ],
         'getBalance' => [
             'application/json',
         ],
@@ -136,20 +139,285 @@ class SmsApi
     }
 
     /**
+     * Operation createBrandName
+     *
+     * Create Brand Name
+     *
+     * @param  \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload|null $createBrandNamePayload Brand Name payload to create (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createBrandName'] to see the possible values for this operation
+     *
+     * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ABGEO\UBill\Sdk\Model\CreateBrandNameResponse
+     */
+    public function createBrandName($createBrandNamePayload = null, string $contentType = self::contentTypes['createBrandName'][0])
+    {
+        list($response) = $this->createBrandNameWithHttpInfo($createBrandNamePayload, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation createBrandNameWithHttpInfo
+     *
+     * Create Brand Name
+     *
+     * @param  \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload|null $createBrandNamePayload Brand Name payload to create (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createBrandName'] to see the possible values for this operation
+     *
+     * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ABGEO\UBill\Sdk\Model\CreateBrandNameResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createBrandNameWithHttpInfo($createBrandNamePayload = null, string $contentType = self::contentTypes['createBrandName'][0])
+    {
+        $request = $this->createBrandNameRequest($createBrandNamePayload, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\ABGEO\UBill\Sdk\Model\CreateBrandNameResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\ABGEO\UBill\Sdk\Model\CreateBrandNameResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ABGEO\UBill\Sdk\Model\CreateBrandNameResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createBrandNameAsync
+     *
+     * Create Brand Name
+     *
+     * @param  \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload|null $createBrandNamePayload Brand Name payload to create (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createBrandName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createBrandNameAsync($createBrandNamePayload = null, string $contentType = self::contentTypes['createBrandName'][0])
+    {
+        return $this->createBrandNameAsyncWithHttpInfo($createBrandNamePayload, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createBrandNameAsyncWithHttpInfo
+     *
+     * Create Brand Name
+     *
+     * @param  \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload|null $createBrandNamePayload Brand Name payload to create (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createBrandName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createBrandNameAsyncWithHttpInfo($createBrandNamePayload = null, string $contentType = self::contentTypes['createBrandName'][0])
+    {
+        $returnType = '\ABGEO\UBill\Sdk\Model\CreateBrandNameResponse';
+        $request = $this->createBrandNameRequest($createBrandNamePayload, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createBrandName'
+     *
+     * @param  \ABGEO\UBill\Sdk\Model\CreateBrandNamePayload|null $createBrandNamePayload Brand Name payload to create (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createBrandName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createBrandNameRequest($createBrandNamePayload = null, string $contentType = self::contentTypes['createBrandName'][0])
+    {
+
+
+
+        $resourcePath = '/sms/brandNameCreate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'text/plain', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($createBrandNamePayload)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($createBrandNamePayload));
+            } else {
+                $httpBody = $createBrandNamePayload;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('key');
+        if ($apiKey !== null) {
+            $queryParams['key'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getBalance
      *
      * Get SMS Balance
      *
-     * @param  mixed|null $body body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \ABGEO\UBill\Sdk\Model\SMSBalanceResponse
      */
-    public function getBalance($body = null, string $contentType = self::contentTypes['getBalance'][0])
+    public function getBalance(string $contentType = self::contentTypes['getBalance'][0])
     {
-        list($response) = $this->getBalanceWithHttpInfo($body, $contentType);
+        list($response) = $this->getBalanceWithHttpInfo($contentType);
         return $response;
     }
 
@@ -158,16 +426,15 @@ class SmsApi
      *
      * Get SMS Balance
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \ABGEO\UBill\Sdk\Model\SMSBalanceResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBalanceWithHttpInfo($body = null, string $contentType = self::contentTypes['getBalance'][0])
+    public function getBalanceWithHttpInfo(string $contentType = self::contentTypes['getBalance'][0])
     {
-        $request = $this->getBalanceRequest($body, $contentType);
+        $request = $this->getBalanceRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -243,15 +510,14 @@ class SmsApi
      *
      * Get SMS Balance
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBalanceAsync($body = null, string $contentType = self::contentTypes['getBalance'][0])
+    public function getBalanceAsync(string $contentType = self::contentTypes['getBalance'][0])
     {
-        return $this->getBalanceAsyncWithHttpInfo($body, $contentType)
+        return $this->getBalanceAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -264,16 +530,15 @@ class SmsApi
      *
      * Get SMS Balance
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBalanceAsyncWithHttpInfo($body = null, string $contentType = self::contentTypes['getBalance'][0])
+    public function getBalanceAsyncWithHttpInfo(string $contentType = self::contentTypes['getBalance'][0])
     {
         $returnType = '\ABGEO\UBill\Sdk\Model\SMSBalanceResponse';
-        $request = $this->getBalanceRequest($body, $contentType);
+        $request = $this->getBalanceRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -314,15 +579,13 @@ class SmsApi
     /**
      * Create request for operation 'getBalance'
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBalance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getBalanceRequest($body = null, string $contentType = self::contentTypes['getBalance'][0])
+    public function getBalanceRequest(string $contentType = self::contentTypes['getBalance'][0])
     {
-
 
 
         $resourcePath = '/sms/balance';
@@ -343,14 +606,7 @@ class SmsApi
         );
 
         // for model (json/xml)
-        if (isset($body)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
-            } else {
-                $httpBody = $body;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -377,7 +633,7 @@ class SmsApi
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
         if ($apiKey !== null) {
-            $headers['key'] = $apiKey;
+            $queryParams['key'] = $apiKey;
         }
 
         $defaultHeaders = [];
@@ -404,36 +660,34 @@ class SmsApi
     /**
      * Operation getBrandNames
      *
-     * Get All BrandNames
+     * Get All Brand Names
      *
-     * @param  mixed|null $body body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBrandNames'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \ABGEO\UBill\Sdk\Model\BrandNamesResponse
      */
-    public function getBrandNames($body = null, string $contentType = self::contentTypes['getBrandNames'][0])
+    public function getBrandNames(string $contentType = self::contentTypes['getBrandNames'][0])
     {
-        list($response) = $this->getBrandNamesWithHttpInfo($body, $contentType);
+        list($response) = $this->getBrandNamesWithHttpInfo($contentType);
         return $response;
     }
 
     /**
      * Operation getBrandNamesWithHttpInfo
      *
-     * Get All BrandNames
+     * Get All Brand Names
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBrandNames'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \ABGEO\UBill\Sdk\Model\BrandNamesResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBrandNamesWithHttpInfo($body = null, string $contentType = self::contentTypes['getBrandNames'][0])
+    public function getBrandNamesWithHttpInfo(string $contentType = self::contentTypes['getBrandNames'][0])
     {
-        $request = $this->getBrandNamesRequest($body, $contentType);
+        $request = $this->getBrandNamesRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -507,17 +761,16 @@ class SmsApi
     /**
      * Operation getBrandNamesAsync
      *
-     * Get All BrandNames
+     * Get All Brand Names
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBrandNames'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBrandNamesAsync($body = null, string $contentType = self::contentTypes['getBrandNames'][0])
+    public function getBrandNamesAsync(string $contentType = self::contentTypes['getBrandNames'][0])
     {
-        return $this->getBrandNamesAsyncWithHttpInfo($body, $contentType)
+        return $this->getBrandNamesAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -528,18 +781,17 @@ class SmsApi
     /**
      * Operation getBrandNamesAsyncWithHttpInfo
      *
-     * Get All BrandNames
+     * Get All Brand Names
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBrandNames'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBrandNamesAsyncWithHttpInfo($body = null, string $contentType = self::contentTypes['getBrandNames'][0])
+    public function getBrandNamesAsyncWithHttpInfo(string $contentType = self::contentTypes['getBrandNames'][0])
     {
         $returnType = '\ABGEO\UBill\Sdk\Model\BrandNamesResponse';
-        $request = $this->getBrandNamesRequest($body, $contentType);
+        $request = $this->getBrandNamesRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -580,15 +832,13 @@ class SmsApi
     /**
      * Create request for operation 'getBrandNames'
      *
-     * @param  mixed|null $body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBrandNames'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getBrandNamesRequest($body = null, string $contentType = self::contentTypes['getBrandNames'][0])
+    public function getBrandNamesRequest(string $contentType = self::contentTypes['getBrandNames'][0])
     {
-
 
 
         $resourcePath = '/sms/brandNames';
@@ -609,14 +859,7 @@ class SmsApi
         );
 
         // for model (json/xml)
-        if (isset($body)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
-            } else {
-                $httpBody = $body;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -643,7 +886,7 @@ class SmsApi
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
         if ($apiKey !== null) {
-            $headers['key'] = $apiKey;
+            $queryParams['key'] = $apiKey;
         }
 
         $defaultHeaders = [];
@@ -672,17 +915,16 @@ class SmsApi
      *
      * Get Delivery Report
      *
-     * @param  int $smsID ID of SMS to get report for (required)
-     * @param  mixed|null $body body (optional)
+     * @param  int $smsID Unique identifier of the SMS (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeliveryReport'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \ABGEO\UBill\Sdk\Model\DeliveryReportResponse
      */
-    public function getDeliveryReport($smsID, $body = null, string $contentType = self::contentTypes['getDeliveryReport'][0])
+    public function getDeliveryReport($smsID, string $contentType = self::contentTypes['getDeliveryReport'][0])
     {
-        list($response) = $this->getDeliveryReportWithHttpInfo($smsID, $body, $contentType);
+        list($response) = $this->getDeliveryReportWithHttpInfo($smsID, $contentType);
         return $response;
     }
 
@@ -691,17 +933,16 @@ class SmsApi
      *
      * Get Delivery Report
      *
-     * @param  int $smsID ID of SMS to get report for (required)
-     * @param  mixed|null $body (optional)
+     * @param  int $smsID Unique identifier of the SMS (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeliveryReport'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \ABGEO\UBill\Sdk\Model\DeliveryReportResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDeliveryReportWithHttpInfo($smsID, $body = null, string $contentType = self::contentTypes['getDeliveryReport'][0])
+    public function getDeliveryReportWithHttpInfo($smsID, string $contentType = self::contentTypes['getDeliveryReport'][0])
     {
-        $request = $this->getDeliveryReportRequest($smsID, $body, $contentType);
+        $request = $this->getDeliveryReportRequest($smsID, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -777,16 +1018,15 @@ class SmsApi
      *
      * Get Delivery Report
      *
-     * @param  int $smsID ID of SMS to get report for (required)
-     * @param  mixed|null $body (optional)
+     * @param  int $smsID Unique identifier of the SMS (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeliveryReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDeliveryReportAsync($smsID, $body = null, string $contentType = self::contentTypes['getDeliveryReport'][0])
+    public function getDeliveryReportAsync($smsID, string $contentType = self::contentTypes['getDeliveryReport'][0])
     {
-        return $this->getDeliveryReportAsyncWithHttpInfo($smsID, $body, $contentType)
+        return $this->getDeliveryReportAsyncWithHttpInfo($smsID, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -799,17 +1039,16 @@ class SmsApi
      *
      * Get Delivery Report
      *
-     * @param  int $smsID ID of SMS to get report for (required)
-     * @param  mixed|null $body (optional)
+     * @param  int $smsID Unique identifier of the SMS (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeliveryReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDeliveryReportAsyncWithHttpInfo($smsID, $body = null, string $contentType = self::contentTypes['getDeliveryReport'][0])
+    public function getDeliveryReportAsyncWithHttpInfo($smsID, string $contentType = self::contentTypes['getDeliveryReport'][0])
     {
         $returnType = '\ABGEO\UBill\Sdk\Model\DeliveryReportResponse';
-        $request = $this->getDeliveryReportRequest($smsID, $body, $contentType);
+        $request = $this->getDeliveryReportRequest($smsID, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -850,14 +1089,13 @@ class SmsApi
     /**
      * Create request for operation 'getDeliveryReport'
      *
-     * @param  int $smsID ID of SMS to get report for (required)
-     * @param  mixed|null $body (optional)
+     * @param  int $smsID Unique identifier of the SMS (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeliveryReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getDeliveryReportRequest($smsID, $body = null, string $contentType = self::contentTypes['getDeliveryReport'][0])
+    public function getDeliveryReportRequest($smsID, string $contentType = self::contentTypes['getDeliveryReport'][0])
     {
 
         // verify the required parameter 'smsID' is set
@@ -866,7 +1104,6 @@ class SmsApi
                 'Missing the required parameter $smsID when calling getDeliveryReport'
             );
         }
-
 
 
         $resourcePath = '/sms/report/{smsID}';
@@ -895,14 +1132,7 @@ class SmsApi
         );
 
         // for model (json/xml)
-        if (isset($body)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
-            } else {
-                $httpBody = $body;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -929,7 +1159,7 @@ class SmsApi
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
         if ($apiKey !== null) {
-            $headers['key'] = $apiKey;
+            $queryParams['key'] = $apiKey;
         }
 
         $defaultHeaders = [];
@@ -958,7 +1188,7 @@ class SmsApi
      *
      * Send SMS
      *
-     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload Pet object that needs to be added to the store (optional)
+     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload SMS payload for sending messages (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['sendSMS'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
@@ -976,7 +1206,7 @@ class SmsApi
      *
      * Send SMS
      *
-     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload Pet object that needs to be added to the store (optional)
+     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload SMS payload for sending messages (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['sendSMS'] to see the possible values for this operation
      *
      * @throws \ABGEO\UBill\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1061,7 +1291,7 @@ class SmsApi
      *
      * Send SMS
      *
-     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload Pet object that needs to be added to the store (optional)
+     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload SMS payload for sending messages (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['sendSMS'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1082,7 +1312,7 @@ class SmsApi
      *
      * Send SMS
      *
-     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload Pet object that needs to be added to the store (optional)
+     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload SMS payload for sending messages (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['sendSMS'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1132,7 +1362,7 @@ class SmsApi
     /**
      * Create request for operation 'sendSMS'
      *
-     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload Pet object that needs to be added to the store (optional)
+     * @param  \ABGEO\UBill\Sdk\Model\SMSPayload|null $sMSPayload SMS payload for sending messages (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['sendSMS'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1195,7 +1425,7 @@ class SmsApi
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('key');
         if ($apiKey !== null) {
-            $headers['key'] = $apiKey;
+            $queryParams['key'] = $apiKey;
         }
 
         $defaultHeaders = [];

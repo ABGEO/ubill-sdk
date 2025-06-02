@@ -15,13 +15,28 @@ tags:
 - description: SMS Endpoints
   name: sms
 paths:
+  /sms/brandNameCreate:
+    post:
+      operationId: createBrandName
+      requestBody:
+        $ref: '#/components/requestBodies/CreateBrandNamePayload'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBrandNameResponse'
+          description: successful operation
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+      - api_key: []
+      summary: Create Brand Name
+      tags:
+      - sms
   /sms/brandNames:
     get:
       operationId: getBrandNames
-      requestBody:
-        content:
-          application/json:
-            schema: {}
       responses:
         "200":
           content:
@@ -33,7 +48,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       security:
       - api_key: []
-      summary: Get All BrandNames
+      summary: Get All Brand Names
       tags:
       - sms
   /sms/send:
@@ -59,19 +74,7 @@ paths:
     get:
       operationId: getDeliveryReport
       parameters:
-      - description: ID of SMS to get report for
-        explode: false
-        in: path
-        name: smsID
-        required: true
-        schema:
-          format: int64
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema: {}
+      - $ref: '#/components/parameters/SMSIDParam'
       responses:
         "200":
           content:
@@ -89,10 +92,6 @@ paths:
   /sms/balance:
     get:
       operationId: getBalance
-      requestBody:
-        content:
-          application/json:
-            schema: {}
       responses:
         "200":
           content:
@@ -108,13 +107,29 @@ paths:
       tags:
       - sms
 components:
+  parameters:
+    SMSIDParam:
+      description: Unique identifier of the SMS
+      explode: false
+      in: path
+      name: smsID
+      required: true
+      schema:
+        $ref: '#/components/schemas/SMSIdentifier'
+      style: simple
   requestBodies:
+    CreateBrandNamePayload:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateBrandNamePayload'
+      description: Brand Name payload to create
     SMSPayload:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SMSPayload'
-      description: Pet object that needs to be added to the store
+      description: SMS payload for sending messages
   responses:
     Unauthorized:
       content:
@@ -122,103 +137,93 @@ components:
           example: Please authorize with valid API key!
       description: Unauthorized
   schemas:
+    BaseResponse:
+      properties:
+        statusID:
+          description: Response status code
+          example: 0
+          format: int64
+          type: integer
+        message:
+          description: Human-readable response message
+          example: Success
+          type: string
+      required:
+      - statusID
+    StatusCode:
+      description: Response status code
+      example: 0
+      format: int64
+      type: integer
+    SMSIdentifier:
+      description: Unique SMS identifier
+      format: int64
+      type: integer
     BrandName:
       example:
-        createdAt: createdAt
-        authorized: authorized
-        name: name
-        id: id
+        createdAt: 2025-05-28 10:07:18
+        authorized: "1"
+        name: ubill-info
+        id: "1"
       properties:
         id:
+          example: "1"
           type: string
         name:
+          example: ubill-info
           type: string
         authorized:
+          example: "1"
           type: string
         createdAt:
-          type: string
-    BrandNamesResponse:
-      example:
-        brands:
-        - createdAt: createdAt
-          authorized: authorized
-          name: name
-          id: id
-        - createdAt: createdAt
-          authorized: authorized
-          name: name
-          id: id
-        statusID: 0
-      properties:
-        statusID:
-          format: int64
-          type: integer
-        brands:
-          items:
-            $ref: '#/components/schemas/BrandName'
-          type: array
-      required:
-      - statusID
-    SMSBalanceResponse:
-      example:
-        statusID: 0
-        sms: sms
-      properties:
-        statusID:
-          format: int64
-          type: integer
-        sms:
+          example: 2025-05-28 10:07:18
           type: string
       required:
-      - sms
-      - statusID
+      - authorized
+      - createdAt
+      - id
+      - name
     DeliveryReportItem:
       example:
-        number: number
-        statusID: statusID
+        number: "995511194241"
+        statusID: "1"
       properties:
         number:
+          example: "995511194241"
           type: string
         statusID:
+          example: "1"
           type: string
-    DeliveryReportResponse:
+    CreateBrandNamePayload:
       example:
-        result:
-        - number: number
-          statusID: statusID
-        - number: number
-          statusID: statusID
-        statusID: 0
+        brandName: ubill-info
       properties:
-        statusID:
-          format: int64
-          type: integer
-        result:
-          items:
-            $ref: '#/components/schemas/DeliveryReportItem'
-          type: array
+        brandName:
+          example: ubill-info
+          type: string
       required:
-      - result
-      - statusID
+      - brandName
     SMSPayload:
       example:
         stopList: true
-        brandID: 0
+        brandID: "1"
         numbers:
-        - 995511194241
-        - 995511194241
-        text: text
+        - "995511194241"
+        - "995511194241"
+        text: Hello
       properties:
         brandID:
+          example: "1"
           format: int64
           type: integer
         numbers:
           items:
-            example: 995511194241
+            example: "995511194241"
             format: int64
             type: integer
           type: array
         text:
+          example: Hello
           type: string
         stopList:
           description: Enable/disable checking numbers in the stop list
@@ -228,24 +233,83 @@ components:
       - numbers
       - stopList
       - text
-    SendSMSResponse:
+    CreateBrandNameResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          brandID:
+            description: Brand identifier
+            example: 1
+            format: int64
+            type: integer
       example:
-        smsID: smsID
         statusID: 0
-        message: message
-      properties:
-        statusID:
-          format: int64
-          type: integer
-        smsID:
-          type: string
-        message:
-          type: string
-      required:
-      - message
-      - statusID
+        brandID: 1
+        message: Success
+    BrandNamesResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          brands:
+            description: List of available brand names
+            items:
+              $ref: '#/components/schemas/BrandName'
+            type: array
+        required:
+        - brands
+      example:
+        brands:
+        - createdAt: 2025-05-28 10:07:18
+          authorized: "1"
+          name: ubill-info
+          id: "1"
+        - createdAt: 2025-05-28 10:07:18
+          authorized: "1"
+          name: ubill-info
+          id: "1"
+        statusID: 0
+        message: Success
+    SendSMSResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          smsID:
+            example: "100"
+            type: string
+      example:
+        smsID: "100"
+        statusID: 0
+        message: Success
+    DeliveryReportResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          result:
+            items:
+              $ref: '#/components/schemas/DeliveryReportItem'
+            type: array
+      example:
+        result:
+        - number: "995511194241"
+          statusID: "1"
+        - number: "995511194241"
+          statusID: "1"
+        statusID: 0
+        message: Success
+    SMSBalanceResponse:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponse'
+      - properties:
+          sms:
+            example: "1000"
+            type: string
+      example:
+        statusID: 0
+        sms: "1000"
+        message: Success
   securitySchemes:
     api_key:
-      in: header
+      description: API key for authentication
+      in: query
       name: key
       type: apiKey

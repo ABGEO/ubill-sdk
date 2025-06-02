@@ -61,8 +61,8 @@ namespace YourProject
         {
             var host = CreateHostBuilder(args).Build();
             var api = host.Services.GetRequiredService<ISmsApi>();
-            GetBalanceApiResponse apiResponse = await api.GetBalanceAsync("todo");
-            SMSBalanceResponse model = apiResponse.Ok();
+            CreateBrandNameApiResponse apiResponse = await api.CreateBrandNameAsync("todo");
+            CreateBrandNameResponse model = apiResponse.Ok();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
@@ -124,7 +124,7 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: key
-- **Location**: HTTP header
+- **Location**: URL query string
 
 
 ## Build

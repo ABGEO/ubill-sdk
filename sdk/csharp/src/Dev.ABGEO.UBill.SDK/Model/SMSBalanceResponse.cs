@@ -34,29 +34,56 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SMSBalanceResponse" /> class.
         /// </summary>
-        /// <param name="statusID">statusID</param>
+        /// <param name="statusID">Response status code</param>
+        /// <param name="message">Human-readable response message</param>
         /// <param name="sms">sms</param>
         [JsonConstructor]
-        public SMSBalanceResponse(long statusID, string sms)
+        public SMSBalanceResponse(long statusID, Option<string?> message = default, Option<string?> sms = default)
         {
             StatusID = statusID;
-            Sms = sms;
+            MessageOption = message;
+            SmsOption = sms;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Gets or Sets StatusID
+        /// Response status code
         /// </summary>
+        /// <value>Response status code</value>
+        /* <example>0</example> */
         [JsonPropertyName("statusID")]
         public long StatusID { get; set; }
 
         /// <summary>
+        /// Used to track the state of Message
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<string?> MessageOption { get; private set; }
+
+        /// <summary>
+        /// Human-readable response message
+        /// </summary>
+        /// <value>Human-readable response message</value>
+        /* <example>Success</example> */
+        [JsonPropertyName("message")]
+        public string? Message { get { return this.MessageOption; } set { this.MessageOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of Sms
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<string?> SmsOption { get; private set; }
+
+        /// <summary>
         /// Gets or Sets Sms
         /// </summary>
+        /* <example>1000</example> */
         [JsonPropertyName("sms")]
-        public string Sms { get; set; }
+        public string? Sms { get { return this.SmsOption; } set { this.SmsOption = new(value); } }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -67,6 +94,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class SMSBalanceResponse {\n");
             sb.Append("  StatusID: ").Append(StatusID).Append("\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  Sms: ").Append(Sms).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -106,6 +134,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<long?> statusID = default;
+            Option<string?> message = default;
             Option<string?> sms = default;
 
             while (utf8JsonReader.Read())
@@ -126,6 +155,9 @@ namespace Dev.ABGEO.UBill.SDK.Model
                         case "statusID":
                             statusID = new Option<long?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (long?)null : utf8JsonReader.GetInt64());
                             break;
+                        case "message":
+                            message = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
                         case "sms":
                             sms = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
@@ -138,16 +170,16 @@ namespace Dev.ABGEO.UBill.SDK.Model
             if (!statusID.IsSet)
                 throw new ArgumentException("Property is required for class SMSBalanceResponse.", nameof(statusID));
 
-            if (!sms.IsSet)
-                throw new ArgumentException("Property is required for class SMSBalanceResponse.", nameof(sms));
-
             if (statusID.IsSet && statusID.Value == null)
                 throw new ArgumentNullException(nameof(statusID), "Property is not nullable for class SMSBalanceResponse.");
+
+            if (message.IsSet && message.Value == null)
+                throw new ArgumentNullException(nameof(message), "Property is not nullable for class SMSBalanceResponse.");
 
             if (sms.IsSet && sms.Value == null)
                 throw new ArgumentNullException(nameof(sms), "Property is not nullable for class SMSBalanceResponse.");
 
-            return new SMSBalanceResponse(statusID.Value!.Value!, sms.Value!);
+            return new SMSBalanceResponse(statusID.Value!.Value!, message, sms);
         }
 
         /// <summary>
@@ -174,12 +206,19 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, SMSBalanceResponse sMSBalanceResponse, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (sMSBalanceResponse.Sms == null)
+            if (sMSBalanceResponse.MessageOption.IsSet && sMSBalanceResponse.Message == null)
+                throw new ArgumentNullException(nameof(sMSBalanceResponse.Message), "Property is required for class SMSBalanceResponse.");
+
+            if (sMSBalanceResponse.SmsOption.IsSet && sMSBalanceResponse.Sms == null)
                 throw new ArgumentNullException(nameof(sMSBalanceResponse.Sms), "Property is required for class SMSBalanceResponse.");
 
             writer.WriteNumber("statusID", sMSBalanceResponse.StatusID);
 
-            writer.WriteString("sms", sMSBalanceResponse.Sms);
+            if (sMSBalanceResponse.MessageOption.IsSet)
+                writer.WriteString("message", sMSBalanceResponse.Message);
+
+            if (sMSBalanceResponse.SmsOption.IsSet)
+                writer.WriteString("sms", sMSBalanceResponse.Sms);
         }
     }
 }

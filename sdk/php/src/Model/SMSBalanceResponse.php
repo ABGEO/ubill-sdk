@@ -59,6 +59,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPITypes = [
         'statusID' => 'int',
+        'message' => 'string',
         'sms' => 'string'
     ];
 
@@ -71,6 +72,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'statusID' => 'int64',
+        'message' => null,
         'sms' => null
     ];
 
@@ -81,6 +83,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static array $openAPINullables = [
         'statusID' => false,
+        'message' => false,
         'sms' => false
     ];
 
@@ -171,6 +174,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $attributeMap = [
         'statusID' => 'statusID',
+        'message' => 'message',
         'sms' => 'sms'
     ];
 
@@ -181,6 +185,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $setters = [
         'statusID' => 'setStatusID',
+        'message' => 'setMessage',
         'sms' => 'setSms'
     ];
 
@@ -191,6 +196,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $getters = [
         'statusID' => 'getStatusID',
+        'message' => 'getMessage',
         'sms' => 'getSms'
     ];
 
@@ -252,6 +258,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function __construct(?array $data = null)
     {
         $this->setIfExists('statusID', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('sms', $data ?? [], null);
     }
 
@@ -285,9 +292,6 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['statusID'] === null) {
             $invalidProperties[] = "'statusID' can't be null";
         }
-        if ($this->container['sms'] === null) {
-            $invalidProperties[] = "'sms' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -316,7 +320,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets statusID
      *
-     * @param int $statusID statusID
+     * @param int $statusID Response status code
      *
      * @return self
      */
@@ -331,9 +335,36 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     }
 
     /**
+     * Gets message
+     *
+     * @return string|null
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string|null $message Human-readable response message
+     *
+     * @return self
+     */
+    public function setMessage($message)
+    {
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        }
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
      * Gets sms
      *
-     * @return string
+     * @return string|null
      */
     public function getSms()
     {
@@ -343,7 +374,7 @@ class SMSBalanceResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets sms
      *
-     * @param string $sms sms
+     * @param string|null $sms sms
      *
      * @return self
      */

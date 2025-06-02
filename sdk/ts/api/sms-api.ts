@@ -24,6 +24,10 @@ import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError
 // @ts-ignore
 import type { BrandNamesResponse } from '../model';
 // @ts-ignore
+import type { CreateBrandNamePayload } from '../model';
+// @ts-ignore
+import type { CreateBrandNameResponse } from '../model';
+// @ts-ignore
 import type { DeliveryReportResponse } from '../model';
 // @ts-ignore
 import type { SMSBalanceResponse } from '../model';
@@ -39,12 +43,48 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
     return {
         /**
          * 
-         * @summary Get SMS Balance
-         * @param {any} [body] 
+         * @summary Create Brand Name
+         * @param {CreateBrandNamePayload} [createBrandNamePayload] Brand Name payload to create
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBalance: async (body?: any, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createBrandName: async (createBrandNamePayload?: CreateBrandNamePayload, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/sms/brandNameCreate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key required
+            await setApiKeyToObject(localVarQueryParameter, "key", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createBrandNamePayload, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get SMS Balance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBalance: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/sms/balance`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -58,16 +98,13 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarQueryParameter = {} as any;
 
             // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "key", configuration)
+            await setApiKeyToObject(localVarQueryParameter, "key", configuration)
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -76,12 +113,11 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
-         * @summary Get All BrandNames
-         * @param {any} [body] 
+         * @summary Get All Brand Names
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBrandNames: async (body?: any, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getBrandNames: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/sms/brandNames`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -95,16 +131,13 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarQueryParameter = {} as any;
 
             // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "key", configuration)
+            await setApiKeyToObject(localVarQueryParameter, "key", configuration)
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -114,12 +147,11 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
         /**
          * 
          * @summary Get Delivery Report
-         * @param {number} smsID ID of SMS to get report for
-         * @param {any} [body] 
+         * @param {number} smsID Unique identifier of the SMS
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDeliveryReport: async (smsID: number, body?: any, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDeliveryReport: async (smsID: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'smsID' is not null or undefined
             assertParamExists('getDeliveryReport', 'smsID', smsID)
             const localVarPath = `/sms/report/{smsID}`
@@ -136,16 +168,13 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarQueryParameter = {} as any;
 
             // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "key", configuration)
+            await setApiKeyToObject(localVarQueryParameter, "key", configuration)
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -155,7 +184,7 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
         /**
          * 
          * @summary Send SMS
-         * @param {SMSPayload} [sMSPayload] Pet object that needs to be added to the store
+         * @param {SMSPayload} [sMSPayload] SMS payload for sending messages
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -173,7 +202,7 @@ export const SmsApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarQueryParameter = {} as any;
 
             // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "key", configuration)
+            await setApiKeyToObject(localVarQueryParameter, "key", configuration)
 
 
     
@@ -201,26 +230,37 @@ export const SmsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get SMS Balance
-         * @param {any} [body] 
+         * @summary Create Brand Name
+         * @param {CreateBrandNamePayload} [createBrandNamePayload] Brand Name payload to create
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBalance(body?: any, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SMSBalanceResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBalance(body, options);
+        async createBrandName(createBrandNamePayload?: CreateBrandNamePayload, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateBrandNameResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createBrandName(createBrandNamePayload, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SmsApi.createBrandName']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get SMS Balance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBalance(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SMSBalanceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBalance(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SmsApi.getBalance']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @summary Get All BrandNames
-         * @param {any} [body] 
+         * @summary Get All Brand Names
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBrandNames(body?: any, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BrandNamesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBrandNames(body, options);
+        async getBrandNames(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BrandNamesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBrandNames(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SmsApi.getBrandNames']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -228,13 +268,12 @@ export const SmsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get Delivery Report
-         * @param {number} smsID ID of SMS to get report for
-         * @param {any} [body] 
+         * @param {number} smsID Unique identifier of the SMS
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDeliveryReport(smsID: number, body?: any, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeliveryReportResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeliveryReport(smsID, body, options);
+        async getDeliveryReport(smsID: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeliveryReportResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeliveryReport(smsID, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SmsApi.getDeliveryReport']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -242,7 +281,7 @@ export const SmsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Send SMS
-         * @param {SMSPayload} [sMSPayload] Pet object that needs to be added to the store
+         * @param {SMSPayload} [sMSPayload] SMS payload for sending messages
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -264,23 +303,31 @@ export const SmsApiFactory = function (configuration?: Configuration, basePath?:
     return {
         /**
          * 
-         * @summary Get SMS Balance
-         * @param {SmsApiGetBalanceRequest} requestParameters Request parameters.
+         * @summary Create Brand Name
+         * @param {SmsApiCreateBrandNameRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBalance(requestParameters: SmsApiGetBalanceRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<SMSBalanceResponse> {
-            return localVarFp.getBalance(requestParameters.body, options).then((request) => request(axios, basePath));
+        createBrandName(requestParameters: SmsApiCreateBrandNameRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CreateBrandNameResponse> {
+            return localVarFp.createBrandName(requestParameters.createBrandNamePayload, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary Get All BrandNames
-         * @param {SmsApiGetBrandNamesRequest} requestParameters Request parameters.
+         * @summary Get SMS Balance
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBrandNames(requestParameters: SmsApiGetBrandNamesRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<BrandNamesResponse> {
-            return localVarFp.getBrandNames(requestParameters.body, options).then((request) => request(axios, basePath));
+        getBalance(options?: RawAxiosRequestConfig): AxiosPromise<SMSBalanceResponse> {
+            return localVarFp.getBalance(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get All Brand Names
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBrandNames(options?: RawAxiosRequestConfig): AxiosPromise<BrandNamesResponse> {
+            return localVarFp.getBrandNames(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -290,7 +337,7 @@ export const SmsApiFactory = function (configuration?: Configuration, basePath?:
          * @throws {RequiredError}
          */
         getDeliveryReport(requestParameters: SmsApiGetDeliveryReportRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeliveryReportResponse> {
-            return localVarFp.getDeliveryReport(requestParameters.smsID, requestParameters.body, options).then((request) => request(axios, basePath));
+            return localVarFp.getDeliveryReport(requestParameters.smsID, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -313,23 +360,31 @@ export const SmsApiFactory = function (configuration?: Configuration, basePath?:
 export interface SmsApiInterface {
     /**
      * 
-     * @summary Get SMS Balance
-     * @param {SmsApiGetBalanceRequest} requestParameters Request parameters.
+     * @summary Create Brand Name
+     * @param {SmsApiCreateBrandNameRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SmsApiInterface
      */
-    getBalance(requestParameters?: SmsApiGetBalanceRequest, options?: RawAxiosRequestConfig): AxiosPromise<SMSBalanceResponse>;
+    createBrandName(requestParameters?: SmsApiCreateBrandNameRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateBrandNameResponse>;
 
     /**
      * 
-     * @summary Get All BrandNames
-     * @param {SmsApiGetBrandNamesRequest} requestParameters Request parameters.
+     * @summary Get SMS Balance
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SmsApiInterface
      */
-    getBrandNames(requestParameters?: SmsApiGetBrandNamesRequest, options?: RawAxiosRequestConfig): AxiosPromise<BrandNamesResponse>;
+    getBalance(options?: RawAxiosRequestConfig): AxiosPromise<SMSBalanceResponse>;
+
+    /**
+     * 
+     * @summary Get All Brand Names
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SmsApiInterface
+     */
+    getBrandNames(options?: RawAxiosRequestConfig): AxiosPromise<BrandNamesResponse>;
 
     /**
      * 
@@ -354,31 +409,17 @@ export interface SmsApiInterface {
 }
 
 /**
- * Request parameters for getBalance operation in SmsApi.
+ * Request parameters for createBrandName operation in SmsApi.
  * @export
- * @interface SmsApiGetBalanceRequest
+ * @interface SmsApiCreateBrandNameRequest
  */
-export interface SmsApiGetBalanceRequest {
+export interface SmsApiCreateBrandNameRequest {
     /**
-     * 
-     * @type {any}
-     * @memberof SmsApiGetBalance
+     * Brand Name payload to create
+     * @type {CreateBrandNamePayload}
+     * @memberof SmsApiCreateBrandName
      */
-    readonly body?: any
-}
-
-/**
- * Request parameters for getBrandNames operation in SmsApi.
- * @export
- * @interface SmsApiGetBrandNamesRequest
- */
-export interface SmsApiGetBrandNamesRequest {
-    /**
-     * 
-     * @type {any}
-     * @memberof SmsApiGetBrandNames
-     */
-    readonly body?: any
+    readonly createBrandNamePayload?: CreateBrandNamePayload
 }
 
 /**
@@ -388,18 +429,11 @@ export interface SmsApiGetBrandNamesRequest {
  */
 export interface SmsApiGetDeliveryReportRequest {
     /**
-     * ID of SMS to get report for
+     * Unique identifier of the SMS
      * @type {number}
      * @memberof SmsApiGetDeliveryReport
      */
     readonly smsID: number
-
-    /**
-     * 
-     * @type {any}
-     * @memberof SmsApiGetDeliveryReport
-     */
-    readonly body?: any
 }
 
 /**
@@ -409,7 +443,7 @@ export interface SmsApiGetDeliveryReportRequest {
  */
 export interface SmsApiSendSMSRequest {
     /**
-     * Pet object that needs to be added to the store
+     * SMS payload for sending messages
      * @type {SMSPayload}
      * @memberof SmsApiSendSMS
      */
@@ -425,26 +459,36 @@ export interface SmsApiSendSMSRequest {
 export class SmsApi extends BaseAPI implements SmsApiInterface {
     /**
      * 
-     * @summary Get SMS Balance
-     * @param {SmsApiGetBalanceRequest} requestParameters Request parameters.
+     * @summary Create Brand Name
+     * @param {SmsApiCreateBrandNameRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SmsApi
      */
-    public getBalance(requestParameters: SmsApiGetBalanceRequest = {}, options?: RawAxiosRequestConfig) {
-        return SmsApiFp(this.configuration).getBalance(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    public createBrandName(requestParameters: SmsApiCreateBrandNameRequest = {}, options?: RawAxiosRequestConfig) {
+        return SmsApiFp(this.configuration).createBrandName(requestParameters.createBrandNamePayload, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Get All BrandNames
-     * @param {SmsApiGetBrandNamesRequest} requestParameters Request parameters.
+     * @summary Get SMS Balance
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SmsApi
      */
-    public getBrandNames(requestParameters: SmsApiGetBrandNamesRequest = {}, options?: RawAxiosRequestConfig) {
-        return SmsApiFp(this.configuration).getBrandNames(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    public getBalance(options?: RawAxiosRequestConfig) {
+        return SmsApiFp(this.configuration).getBalance(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get All Brand Names
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SmsApi
+     */
+    public getBrandNames(options?: RawAxiosRequestConfig) {
+        return SmsApiFp(this.configuration).getBrandNames(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -456,7 +500,7 @@ export class SmsApi extends BaseAPI implements SmsApiInterface {
      * @memberof SmsApi
      */
     public getDeliveryReport(requestParameters: SmsApiGetDeliveryReportRequest, options?: RawAxiosRequestConfig) {
-        return SmsApiFp(this.configuration).getDeliveryReport(requestParameters.smsID, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+        return SmsApiFp(this.configuration).getDeliveryReport(requestParameters.smsID, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

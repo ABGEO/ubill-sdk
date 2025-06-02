@@ -56,6 +56,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Gets or Sets Number
         /// </summary>
+        /* <example>995511194241</example> */
         [JsonPropertyName("number")]
         public string? Number { get { return this.NumberOption; } set { this.NumberOption = new(value); } }
 
@@ -69,6 +70,7 @@ namespace Dev.ABGEO.UBill.SDK.Model
         /// <summary>
         /// Gets or Sets StatusID
         /// </summary>
+        /* <example>1</example> */
         [JsonPropertyName("statusID")]
         public string? StatusID { get { return this.StatusIDOption; } set { this.StatusIDOption = new(value); } }
 

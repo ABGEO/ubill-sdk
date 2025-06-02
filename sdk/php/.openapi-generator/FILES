@@ -3,8 +3,11 @@
 README.md
 composer.json
 docs/Api/SmsApi.md
+docs/Model/BaseResponse.md
 docs/Model/BrandName.md
 docs/Model/BrandNamesResponse.md
+docs/Model/CreateBrandNamePayload.md
+docs/Model/CreateBrandNameResponse.md
 docs/Model/DeliveryReportItem.md
 docs/Model/DeliveryReportResponse.md
 docs/Model/SMSBalanceResponse.md
@@ -16,8 +19,11 @@ src/ApiException.php
 src/Configuration.php
 src/FormDataProcessor.php
 src/HeaderSelector.php
+src/Model/BaseResponse.php
 src/Model/BrandName.php
 src/Model/BrandNamesResponse.php
+src/Model/CreateBrandNamePayload.php
+src/Model/CreateBrandNameResponse.php
 src/Model/DeliveryReportItem.php
 src/Model/DeliveryReportResponse.php
 src/Model/ModelInterface.php
@@ -25,3 +31,6 @@ src/Model/SMSBalanceResponse.php
 src/Model/SMSPayload.php
 src/Model/SendSMSResponse.php
 src/ObjectSerializer.php
+test/Model/BaseResponseTest.php
+test/Model/CreateBrandNamePayloadTest.php
+test/Model/CreateBrandNameResponseTest.php

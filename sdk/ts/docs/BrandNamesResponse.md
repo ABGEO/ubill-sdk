@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**statusID** | **number** |  | [default to undefined]
-**brands** | [**Array&lt;BrandName&gt;**](BrandName.md) |  | [optional] [default to undefined]
+**statusID** | **number** | Response status code | [default to undefined]
+**message** | **string** | Human-readable response message | [optional] [default to undefined]
+**brands** | [**Array&lt;BrandName&gt;**](BrandName.md) | List of available brand names | [default to undefined]
 
 ## Example
 
@@ -15,6 +16,7 @@ import { BrandNamesResponse } from 'abgeo/ubill-sdk';
 
 const instance: BrandNamesResponse = {
     statusID,
+    message,
     brands,
 };
 ```

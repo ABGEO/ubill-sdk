@@ -44,8 +44,11 @@ namespace Dev.ABGEO.UBill.SDK.Client
             _jsonOptions.Converters.Add(new DateTimeNullableJsonConverter());
             _jsonOptions.Converters.Add(new DateOnlyJsonConverter());
             _jsonOptions.Converters.Add(new DateOnlyNullableJsonConverter());
+            _jsonOptions.Converters.Add(new BaseResponseJsonConverter());
             _jsonOptions.Converters.Add(new BrandNameJsonConverter());
             _jsonOptions.Converters.Add(new BrandNamesResponseJsonConverter());
+            _jsonOptions.Converters.Add(new CreateBrandNamePayloadJsonConverter());
+            _jsonOptions.Converters.Add(new CreateBrandNameResponseJsonConverter());
             _jsonOptions.Converters.Add(new DeliveryReportItemJsonConverter());
             _jsonOptions.Converters.Add(new DeliveryReportResponseJsonConverter());
             _jsonOptions.Converters.Add(new SMSBalanceResponseJsonConverter());

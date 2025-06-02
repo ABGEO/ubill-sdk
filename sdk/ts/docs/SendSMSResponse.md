@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**statusID** | **number** |  | [default to undefined]
+**statusID** | **number** | Response status code | [default to undefined]
+**message** | **string** | Human-readable response message | [optional] [default to undefined]
 **smsID** | **string** |  | [optional] [default to undefined]
-**message** | **string** |  | [default to undefined]
 
 ## Example
 
@@ -16,8 +16,8 @@ import { SendSMSResponse } from 'abgeo/ubill-sdk';
 
 const instance: SendSMSResponse = {
     statusID,
-    smsID,
     message,
+    smsID,
 };
 ```
 
