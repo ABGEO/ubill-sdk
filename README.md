@@ -1,5 +1,8 @@
 # UBill SDK
 
+> [!WARNING]  
+> This project is archived and has been moved to the [UBill](https://github.com/ubill-ge) organization.
+
 Auto-generated SDKs for the UBill API Service. This repository contains various SDK libraries that provide easy
 integration with UBill's services.
 
